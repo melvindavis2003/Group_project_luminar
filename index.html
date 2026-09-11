@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meetco Events - Premier Event Management & Booking Platform</title>
+  <meta name="description" content="Meetco is the premier event management booking platform. Explore bespoke weddings, grand corporate summits, birthday celebrations, photography sessions, and workshops.">
+  <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            meetco: {
+              yellow: '#ffe04b',
+              cyan: '#00b8ff',
+              navy: '#131053',
+              purple: '#260f8f',
+              body: '#414047',
+              light: '#f2f2f2',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['ARPDisplay', 'Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Font Awesome 6 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- GSAP 3 & ScrollTrigger CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-white text-meetco-body antialiased selection:bg-meetco-yellow selection:text-meetco-navy relative">
+
+  <!-- Mouse Tracking Cursor (Tailwind CSS & GSAP) -->
+  <div id="cursor-dot" class="fixed top-0 left-0 w-2.5 h-2.5 bg-meetco-yellow rounded-full pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 hidden lg:block"></div>
+  <div id="cursor-ring" class="fixed top-0 left-0 w-9 h-9 rounded-full border-2 border-meetco-yellow/80 pointer-events-none z-[99998] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-[opacity,border-color,background-color] duration-300 hidden lg:block"></div>
+
+  <!-- Preloader -->
+  <div id="preloader" class="preloader">
+    <div class="main-loader">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <a href="#top" id="back-to-top" class="back-to-top" aria-label="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </a>
+
+  <!-- Offcanvas Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- Offcanvas Sidebar Drawer -->
+  <aside id="offcanvas-sidebar" class="offcanvas-sidebar flex flex-col justify-between" aria-label="Sidebar Menu">
+    <div>
+      <div class="flex items-center justify-between pb-8 border-b border-white/10 mb-8">
+        <a href="index.html">
+          <img src="assets/img/logo/logo-two.svg" alt="Meetco Logo" class="h-9 w-auto">
+        </a>
+        <button id="close-sidebar-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <p class="text-white/80 text-base leading-relaxed mb-8">
+        Meetco is your premier full-service event management partner. We design, coordinate, and execute breathtaking weddings, birthday celebrations, corporate summits, and workshops with perfection.
+      </p>
+
+      <div class="mb-8">
+        <h4 class="text-white text-lg font-bold font-heading mb-4">Quick Navigation</h4>
+        <ul class="space-y-2.5 text-sm font-medium text-white/80">
+          <li><a href="index.html" class="hover:text-meetco-yellow transition-colors block py-1">Home Overview</a></li>
+          <li><a href="#services-section" class="hover:text-meetco-yellow transition-colors block py-1">Our Services</a></li>
+          <li><a href="#gallery-section" class="hover:text-meetco-yellow transition-colors block py-1">Events Gallery</a></li>
+          <li><a href="#upcoming-events-section" class="hover:text-meetco-yellow transition-colors block py-1">Upcoming Events</a></li>
+          <li><a href="booking.html" class="hover:text-meetco-yellow transition-colors block py-1">Event Booking</a></li>
+          <li><a href="contact.html" class="hover:text-meetco-yellow transition-colors block py-1">Contact Specialists</a></li>
+          <li><a href="login.html" class="hover:text-meetco-yellow transition-colors block py-1">Client Login</a></li>
+          <li><a href="register.html" class="hover:text-meetco-yellow transition-colors block py-1">Create Account</a></li>
+        </ul>
+      </div>
+
+      <div class="mb-8">
+        <h4 class="text-white text-lg font-bold font-heading mb-4">Contact Information</h4>
+        <ul class="space-y-3.5 text-sm text-white/80">
+          <li class="flex items-center gap-3">
+            <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
+            <span>PARKROYAL, Hotel Singapore & Melbone St, NY</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
+            <a href="tel:+8180012345678" class="hover:text-meetco-yellow transition-colors">+81 800 123 456 78</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
+            <a href="mailto:contact@meetco.com" class="hover:text-meetco-yellow transition-colors">contact@meetco.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-white text-sm font-bold font-heading mb-3">Newsletter Updates</h4>
+      <form action="#" class="relative" onsubmit="event.preventDefault(); alert('Subscribed to Meetco Event Updates!');">
+        <input type="email" placeholder="Enter your email" required class="w-full bg-white/10 border border-white/20 rounded-full py-3 pl-4 pr-12 text-white placeholder-white/50 text-xs focus:outline-none focus:border-meetco-yellow">
+        <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-meetco-yellow text-meetco-navy flex items-center justify-center hover:scale-105 transition-transform" aria-label="Subscribe">
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Top Anchor -->
+  <div id="top"></div>
+
+  <!-- Header Navigation - Authentic Meetco Floating Card Navbar -->
+  <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 pt-5 sm:pt-7 pb-2 pointer-events-none">
+    <div class="w-full max-w-[96%] xl:max-w-[1780px] 2xl:max-w-[1840px] mx-auto px-2 sm:px-4 pointer-events-auto">
+      <div class="meetco-header-wrap px-6 sm:px-10 lg:px-12 py-3.5 sm:py-4 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center flex-shrink-0">
+          <img src="assets/img/logo/logo.svg" alt="Meetco Logo" class="h-8 sm:h-9 w-auto">
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden xl:flex items-center space-x-1.5 2xl:space-x-2.5">
+          <a href="#top" data-section="home" class="nav-link active-nav-section">
+            Home
+          </a>
+          <a href="#services-section" data-section="services" class="nav-link">
+            Services
+          </a>
+          <a href="#gallery-section" data-section="gallery" class="nav-link">
+            Gallery
+          </a>
+          <a href="#upcoming-events-section" data-section="upcoming" class="nav-link">
+            Upcoming
+          </a>
+          <a href="#pricing-section" data-section="pricing" class="nav-link">
+            Pricing
+          </a>
+          <a href="booking.html" class="nav-link">
+            Booking
+          </a>
+          <a href="contact.html" class="nav-link">
+            Contact
+          </a>
+        </nav>
+
+        <!-- Right Tools: Auth & Meetco Yellow Offcanvas Button -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          
+          <!-- Auth Links -->
+          <div class="hidden sm:flex items-center gap-2">
+            <a href="login.html" class="text-meetco-navy text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg hover:text-meetco-purple transition-colors">
+              Login
+            </a>
+            <a href="register.html" class="bg-meetco-purple text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-meetco-navy transition-colors shadow-sm">
+              Register
+            </a>
+          </div>
+
+          <!-- Iconic Meetco Circular Offcanvas Trigger -->
+          <button class="open-sidebar-btn w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-meetco-yellow hover:bg-meetco-cyan transition-colors flex items-center justify-center shadow-md flex-shrink-0" aria-label="Open Sidebar Menu">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23.8333 9.23V4.31166C23.8333 2.78416 23.14 2.16666 21.4175 2.16666H17.0408C15.3183 2.16666 14.625 2.78416 14.625 4.31166V9.21916C14.625 10.7575 15.3183 11.3642 17.0408 11.3642H21.4175C23.14 11.375 23.8333 10.7575 23.8333 9.23Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M23.8333 21.4175V17.0408C23.8333 15.3183 23.14 14.625 21.4175 14.625H17.0408C15.3183 14.625 14.625 15.3183 14.625 17.0408V21.4175C14.625 23.14 15.3183 23.8333 17.0408 23.8333H21.4175C23.14 23.8333 23.8333 23.14 23.8333 21.4175Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M11.3748 9.23V4.31166C11.3748 2.78416 10.6815 2.16666 8.959 2.16666H4.58234C2.85984 2.16666 2.1665 2.78416 2.1665 4.31166V9.21916C2.1665 10.7575 2.85984 11.3642 4.58234 11.3642H8.959C10.6815 11.375 11.3748 10.7575 11.3748 9.23Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M11.3748 21.4175V17.0408C11.3748 15.3183 10.6815 14.625 8.959 14.625H4.58234C2.85984 14.625 2.1665 15.3183 2.1665 17.0408V21.4175C2.1665 23.14 2.85984 23.8333 4.58234 23.8333H8.959C10.6815 23.8333 11.3748 23.14 11.3748 21.4175Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobile-menu-btn" class="xl:hidden p-2 text-meetco-navy hover:text-meetco-purple focus:outline-none" aria-label="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden xl:hidden bg-white rounded-[10px] mt-2 p-5 shadow-2xl border border-slate-200">
+        <nav class="flex flex-col space-y-1.5">
+          <a href="#top" data-section="home" class="mobile-nav-link active-nav-section">Home</a>
+          <a href="#services-section" data-section="services" class="mobile-nav-link">Services</a>
+          <a href="#gallery-section" data-section="gallery" class="mobile-nav-link">Events Gallery</a>
+          <a href="#upcoming-events-section" data-section="upcoming" class="mobile-nav-link">Upcoming Events</a>
+          <a href="#pricing-section" data-section="pricing" class="mobile-nav-link">Pricing Packages</a>
+          <a href="booking.html" class="mobile-nav-link">Booking Form</a>
+          <a href="contact.html" class="mobile-nav-link">Contact Us</a>
+          <div class="pt-4 border-t border-slate-100 flex gap-3">
+            <a href="login.html" class="flex-1 text-center py-2.5 bg-slate-100 text-meetco-navy rounded-lg font-bold text-sm hover:bg-slate-200 transition-colors">Login</a>
+            <a href="register.html" class="flex-1 text-center py-2.5 bg-meetco-purple text-white rounded-lg font-bold text-sm hover:bg-meetco-navy transition-colors">Register</a>
+          </div>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero-section" class="relative pt-36 pb-32 lg:pt-48 lg:pb-40 overflow-hidden bg-cover bg-center" style="background-image: url('assets/img/bg/hero_bg.jpg');">
+    <div class="absolute inset-0 bg-[#131053]/85 pointer-events-none"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      
+      <!-- Big Headings with GSAP class -->
+      <div class="hero-gsap-elem">
+        <span class="inline-block bg-white/10 text-meetco-yellow border border-meetco-yellow/30 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+          ✨ Premier Event Management & Booking Platform
+        </span>
+        <h1 class="text-white text-5xl sm:text-7xl lg:text-9xl font-black tracking-tight uppercase font-heading drop-shadow-sm">
+          MEETCO EVENTS
+        </h1>
+        
+        <div class="mt-4 sm:mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6">
+          <p class="text-meetco-yellow text-xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-wide">
+            CRAFTING UNFORGETTABLE EXPERIENCES
+          </p>
+          <span class="text-white text-3xl sm:text-5xl lg:text-6xl font-black font-heading">
+            2025
+          </span>
+        </div>
+
+        <p class="text-white/80 max-w-2xl mx-auto mt-6 text-base sm:text-lg leading-relaxed">
+          From dream weddings and energetic birthday celebrations to high-impact corporate summits, master photography sessions, and educational workshops.
+        </p>
+      </div>
+
+      <!-- Hero Bottom Badges & Call-To-Action -->
+      <div class="mt-12 lg:mt-16 flex flex-col md:flex-row items-center justify-between max-w-4xl mx-auto gap-8 hero-gsap-elem">
+        
+        <!-- Venue & Date Items -->
+        <div class="flex flex-col sm:flex-row items-center gap-8 sm:gap-12 text-left">
+          
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+              <img src="assets/img/icon/location-icon-yellow.svg" alt="Location" class="w-6 h-6">
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-meetco-yellow uppercase tracking-wider block">Headquarters:</span>
+              <p class="text-white text-sm sm:text-base font-bold">PARKROYAL, Singapore & NY</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+              <img src="assets/img/icon/calendar-icon-yellow.png" alt="Calendar" class="w-6 h-6">
+            </div>
+            <div>
+              <span class="text-xs font-semibold text-meetco-yellow uppercase tracking-wider block">Reservations:</span>
+              <p class="text-white text-sm sm:text-base font-bold">Open for 2025 – 2026</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Magnetic Parallax CTA Button -->
+        <div>
+          <a href="booking.html" class="forum-circle-btn">
+            <p>Book Your Event Now</p>
+            <span class="dollar">BOOK</span>
+            <span class="arrow">
+              <svg width="22" height="22" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M24.4996 2.03657C24.5198 1.20839 23.8648 0.520645 23.0366 0.500446L9.54059 0.171275C8.71241 0.151076 8.02466 0.806074 8.00446 1.63426C7.98426 2.46244 8.63926 3.15018 9.46744 3.17038L21.4639 3.46298L21.1713 15.4594C21.1511 16.2876 21.8061 16.9753 22.6343 16.9955C23.4624 17.0157 24.1502 16.3607 24.1704 15.5326L24.4996 2.03657ZM3.03448 23.0862L24.0345 3.08621L21.9655 0.913793L0.965517 20.9138L3.03448 23.0862Z" fill="#FFE04B" />
+              </svg>
+            </span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Dual Floating Cutouts with Mouse Parallax -->
+    <div class="hidden xl:block pointer-events-none">
+      <div id="hero-img-1" class="absolute left-8 bottom-4 w-72 2xl:w-80 transition-transform duration-150 ease-out">
+        <img src="assets/img/hero/hero-img01.png" alt="Event Planner" class="w-full h-auto drop-shadow-2xl">
+      </div>
+      <div id="hero-img-2" class="absolute right-8 bottom-4 w-72 2xl:w-80 transition-transform duration-150 ease-out">
+        <img src="assets/img/hero/hero-img02.png" alt="Happy Client" class="w-full h-auto drop-shadow-2xl">
+      </div>
+    </div>
+  </section>
+
+  <!-- Brands / Partner Venues Marquee -->
+  <section class="py-16 bg-meetco-light border-y border-slate-200 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 text-center mb-8">
+      <span class="inline-block bg-white text-meetco-navy font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-full shadow-sm">
+        Trusted By Global Venues & Corporate Brands
+      </span>
+    </div>
+
+    <div class="marquee-wrapper mb-4">
+      <div class="marquee-content">
+        <div class="sponsor-badge"><img src="assets/img/brand/logo01.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo02.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo03.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo04.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo05.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo06.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo07.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo08.png" alt="Partner"></div>
+      </div>
+      <div class="marquee-content">
+        <div class="sponsor-badge"><img src="assets/img/brand/logo01.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo02.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo03.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo04.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo05.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo06.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo07.png" alt="Partner"></div>
+        <div class="sponsor-badge"><img src="assets/img/brand/logo08.png" alt="Partner"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about-section" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
+        
+        <div class="lg:col-span-6">
+          <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-3">About Meetco</span>
+          <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight mb-6">
+            Pioneering Event Experiences With Perfection & Passion
+          </h2>
+          <p class="text-meetco-body text-base sm:text-lg leading-relaxed mb-6">
+            Meetco is an award-winning event management and production agency with over a decade of excellence. We specialize in turning your vision into reality, managing every detail from venue selection and thematic decor to catering, audiovisual setup, and VIP hospitality.
+          </p>
+
+          <div class="space-y-3.5">
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy text-xs font-bold">✓</div>
+              <span class="text-meetco-navy font-semibold text-sm">Full-Service Coordination: End-to-end planning with dedicated coordinators</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy text-xs font-bold">✓</div>
+              <span class="text-meetco-navy font-semibold text-sm">Custom Tailored Packages for weddings, birthdays, and conferences</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy text-xs font-bold">✓</div>
+              <span class="text-meetco-navy font-semibold text-sm">Transparent Pricing & instant real-time booking estimation</span>
+            </div>
+          </div>
+
+          <div class="mt-8 flex items-center gap-4">
+            <a href="booking.html" class="bg-meetco-purple text-white px-7 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-meetco-yellow hover:text-meetco-navy transition-all duration-300 shadow-md">
+              Book An Event
+            </a>
+            <a href="contact.html" class="border border-slate-300 text-meetco-navy px-7 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs hover:border-meetco-purple transition-all duration-300">
+              Speak To A Planner
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform">
+              <img src="assets/img/about/img01.jpg" alt="Wedding Event" class="w-full h-64 object-cover">
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-lg mt-8 transform hover:scale-[1.02] transition-transform">
+              <img src="assets/img/about/img02.jpg" alt="Corporate Summit" class="w-full h-64 object-cover">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Animated Stat Counters -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-10 border-t border-slate-100">
+        
+        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+            <span class="counter-val" data-target="28">0</span><span>K+</span>
+          </div>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Happy Clients & Attendees</span>
+        </div>
+
+        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+            <span class="counter-val" data-target="450">0</span><span>+</span>
+          </div>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Events Organized</span>
+        </div>
+
+        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+            <span class="counter-val" data-target="40">0</span><span>+</span>
+          </div>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Planners & Photographers</span>
+        </div>
+
+        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+            <span class="counter-val" data-target="100">0</span><span>%</span>
+          </div>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Satisfaction Rate</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Events Gallery Section -->
+  <section id="gallery-section" class="py-28 bg-meetco-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Our Portfolio</span>
+        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+          Events Gallery
+        </h2>
+        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+          Browse through our curated showcase across our key event categories.
+        </p>
+
+        <!-- Filter Tabs -->
+        <div class="flex flex-wrap justify-center gap-2 sm:gap-3 mt-8">
+          <button class="gallery-filter-btn active px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-meetco-navy hover:shadow-md" data-filter="all">
+            All Events
+          </button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-meetco-navy hover:shadow-md" data-filter="birthday">
+            🎉 Birthday Parties
+          </button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-meetco-navy hover:shadow-md" data-filter="photography">
+            📸 Photography Sessions
+          </button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-meetco-navy hover:shadow-md" data-filter="wedding">
+            💒 Weddings
+          </button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-meetco-navy hover:shadow-md" data-filter="corporate">
+            💼 Corporate Events
+          </button>
+          <button class="gallery-filter-btn px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white text-meetco-navy hover:shadow-md" data-filter="workshop">
+            📚 Workshops & Seminars
+          </button>
+        </div>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Wedding 1 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="wedding">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/about/img01.jpg" alt="Luxury Beach Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Weddings</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Luxe Garden Wedding</h3>
+            <p class="text-slate-500 text-xs mt-1">Full floral styling, bridal concierge & reception planning.</p>
+          </div>
+        </div>
+
+        <!-- Birthday 1 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="birthday">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/about/img03.jpg" alt="Birthday Bash" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-purple text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Birthday Parties</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Carnival Birthday Celebration</h3>
+            <p class="text-slate-500 text-xs mt-1">Thematic lighting, DJ entertainment, custom cake & catering.</p>
+          </div>
+        </div>
+
+        <!-- Photography 1 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="photography">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/about/img04.jpg" alt="Studio Photography" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-cyan text-meetco-navy text-[11px] font-bold uppercase px-3 py-1 rounded-full">Photography</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Editorial & Portrait Sessions</h3>
+            <p class="text-slate-500 text-xs mt-1">High-end cinematography, 4K multi-camera coverage & editing.</p>
+          </div>
+        </div>
+
+        <!-- Corporate 1 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="corporate">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/about/img02.jpg" alt="Corporate Summit" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Corporate Events</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Global Leadership Summit</h3>
+            <p class="text-slate-500 text-xs mt-1">Keynote staging, audio-visual tech & VIP delegate management.</p>
+          </div>
+        </div>
+
+        <!-- Workshop 1 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="workshop">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/about/img05.jpg" alt="Workshop & Seminar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Workshops</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Tech & Innovation Masterclass</h3>
+            <p class="text-slate-500 text-xs mt-1">Breakout rooms, interactive kits, and live streaming logistics.</p>
+          </div>
+        </div>
+
+        <!-- Wedding 2 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="wedding">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/feature/img02.png" alt="Destination Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Weddings</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Royal Palace Destination Wedding</h3>
+            <p class="text-slate-500 text-xs mt-1">Grand ballroom setup, multi-day itinerary & fireworks finale.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Upcoming Events Section -->
+  <section id="upcoming-events-section" class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Mark Your Calendar</span>
+        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+          Upcoming Events
+        </h2>
+        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+          Join our featured events or let us curate your own bespoke celebration.
+        </p>
+      </div>
+
+      <!-- 4 Event Cards from Project Brief -->
+      <div id="upcoming-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        
+        <!-- Card 1: Wedding Event -->
+        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img src="assets/img/about/img01.jpg" alt="Wedding Event" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 bg-meetco-yellow text-meetco-navy text-xs font-extrabold px-3 py-1 rounded-full uppercase">Wedding</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Grand Luxe Wedding Showcase</h3>
+              <div class="space-y-1.5 text-xs text-slate-500">
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
+                  <span>October 18, 2025</span>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-meetco-purple"></i>
+                  <span>PARKROYAL Ballroom, Singapore</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="booking.html" class="block text-center w-full py-2.5 rounded-xl bg-meetco-navy text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
+              Book / RSVP
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Birthday Celebration -->
+        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img src="assets/img/about/img03.jpg" alt="Birthday Celebration" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 bg-meetco-purple text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Birthday</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Golden Jubilee Birthday Celebration</h3>
+              <div class="space-y-1.5 text-xs text-slate-500">
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
+                  <span>November 05, 2025</span>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-meetco-purple"></i>
+                  <span>Skyline Terrace, Melbourne</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="booking.html" class="block text-center w-full py-2.5 rounded-xl bg-meetco-navy text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
+              Book / RSVP
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Photography Event -->
+        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img src="assets/img/about/img04.jpg" alt="Photography Event" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 bg-meetco-cyan text-meetco-navy text-xs font-extrabold px-3 py-1 rounded-full uppercase">Photography</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Fashion & Portrait Photography Gala</h3>
+              <div class="space-y-1.5 text-xs text-slate-500">
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
+                  <span>December 12, 2025</span>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-meetco-purple"></i>
+                  <span>Metropolitan Studio, New York</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="booking.html" class="block text-center w-full py-2.5 rounded-xl bg-meetco-navy text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
+              Book / RSVP
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4: Corporate Meet -->
+        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+          <div>
+            <div class="relative h-52 overflow-hidden">
+              <img src="assets/img/about/img02.jpg" alt="Corporate Meet" class="w-full h-full object-cover">
+              <span class="absolute top-3 left-3 bg-emerald-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Corporate</span>
+            </div>
+            <div class="p-5">
+              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Future of Business Corporate Meet</h3>
+              <div class="space-y-1.5 text-xs text-slate-500">
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
+                  <span>January 22, 2026</span>
+                </p>
+                <p class="flex items-center gap-2">
+                  <i class="fa-solid fa-location-dot text-meetco-purple"></i>
+                  <span>Sands Expo Center, Singapore</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="p-5 pt-0">
+            <a href="booking.html" class="block text-center w-full py-2.5 rounded-xl bg-meetco-navy text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
+              Book / RSVP
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services-section" class="py-16 sm:py-20 meetco-gradient text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+        <span class="text-meetco-yellow text-xs font-bold uppercase tracking-widest block mb-2">What We Offer</span>
+        <h2 class="text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
+          Comprehensive Event Services
+        </h2>
+        <p class="text-white/80 mt-3 text-sm sm:text-base">
+          Delivering tailored management and production for every scale and vision.
+        </p>
+      </div>
+
+      <!-- 5 Services Cards (Balanced Layout: 3 top row, 2 centered bottom row) -->
+      <div id="services-grid" class="space-y-6 sm:space-y-8">
+        
+        <!-- Top Row: 3 Services Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          
+          <!-- Service 1: Birthday Party Planning -->
+          <div class="service-card p-7 sm:p-8 flex flex-col justify-between group">
+            <div>
+              <div class="w-16 h-16 rounded-[10px] bg-meetco-yellow/25 group-hover:bg-meetco-yellow text-meetco-navy flex items-center justify-center text-3xl mb-6 shadow-sm transition-all duration-300">
+                🎉
+              </div>
+              <h3 class="text-meetco-navy text-2xl font-bold font-heading mb-3 group-hover:text-meetco-purple transition-colors">
+                Birthday Party Planning
+              </h3>
+              <p class="text-meetco-body text-sm leading-relaxed mb-6">
+                Custom thematic design, children's entertainers, DJ & live music, dessert bars, balloon artistry, and complete venue coordination.
+              </p>
+              <ul class="space-y-2.5 text-xs text-meetco-body font-medium mb-6">
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Personalized theme & invitations</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Catering & custom cake curation</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Photography & live entertainment</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <a href="booking.html" class="inline-flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-meetco-purple group-hover:text-meetco-navy transition-colors">
+                <span>Book Birthday Event</span>
+                <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+              </a>
+              <span class="w-8 h-8 rounded-full bg-meetco-light group-hover:bg-meetco-yellow flex items-center justify-center text-xs text-meetco-navy transition-colors">
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Service 2: Wedding Management -->
+          <div class="service-card p-7 sm:p-8 flex flex-col justify-between group">
+            <div>
+              <div class="w-16 h-16 rounded-[10px] bg-meetco-yellow/25 group-hover:bg-meetco-yellow text-meetco-navy flex items-center justify-center text-3xl mb-6 shadow-sm transition-all duration-300">
+                💒
+              </div>
+              <h3 class="text-meetco-navy text-2xl font-bold font-heading mb-3 group-hover:text-meetco-purple transition-colors">
+                Wedding Management
+              </h3>
+              <p class="text-meetco-body text-sm leading-relaxed mb-6">
+                Full-service bridal concierge, destination wedding logistics, floral design, banquet catering, fireworks, and seamless ceremony direction.
+              </p>
+              <ul class="space-y-2.5 text-xs text-meetco-body font-medium mb-6">
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Venue sourcing & negotiations</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Rehearsals & day-of coordination</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Sound, lighting & live orchestra</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <a href="booking.html" class="inline-flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-meetco-purple group-hover:text-meetco-navy transition-colors">
+                <span>Book Wedding Service</span>
+                <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+              </a>
+              <span class="w-8 h-8 rounded-full bg-meetco-light group-hover:bg-meetco-yellow flex items-center justify-center text-xs text-meetco-navy transition-colors">
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Service 3: Photography Services -->
+          <div class="service-card p-7 sm:p-8 flex flex-col justify-between group">
+            <div>
+              <div class="w-16 h-16 rounded-[10px] bg-meetco-yellow/25 group-hover:bg-meetco-yellow text-meetco-navy flex items-center justify-center text-3xl mb-6 shadow-sm transition-all duration-300">
+                📸
+              </div>
+              <h3 class="text-meetco-navy text-2xl font-bold font-heading mb-3 group-hover:text-meetco-purple transition-colors">
+                Photography Services
+              </h3>
+              <p class="text-meetco-body text-sm leading-relaxed mb-6">
+                Award-winning photographers and cinematographers offering drone aerial shots, photo booths, instant prints, and 4K highlight reels.
+              </p>
+              <ul class="space-y-2.5 text-xs text-meetco-body font-medium mb-6">
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Multi-camera video streaming</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Studio portraits & candid coverage</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Cloud gallery with instant sharing</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <a href="booking.html" class="inline-flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-meetco-purple group-hover:text-meetco-navy transition-colors">
+                <span>Book Photography</span>
+                <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+              </a>
+              <span class="w-8 h-8 rounded-full bg-meetco-light group-hover:bg-meetco-yellow flex items-center justify-center text-xs text-meetco-navy transition-colors">
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bottom Row: 2 Centered Services Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+          
+          <!-- Service 4: Corporate Event Management -->
+          <div class="service-card p-7 sm:p-8 flex flex-col justify-between group">
+            <div>
+              <div class="w-16 h-16 rounded-[10px] bg-meetco-yellow/25 group-hover:bg-meetco-yellow text-meetco-navy flex items-center justify-center text-3xl mb-6 shadow-sm transition-all duration-300">
+                💼
+              </div>
+              <h3 class="text-meetco-navy text-2xl font-bold font-heading mb-3 group-hover:text-meetco-purple transition-colors">
+                Corporate Event Management
+              </h3>
+              <p class="text-meetco-body text-sm leading-relaxed mb-6">
+                High-profile executive summits, annual general meetings, product launch extravaganzas, trade show booths, and international delegate hospitality.
+              </p>
+              <ul class="space-y-2.5 text-xs text-meetco-body font-medium mb-6">
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Stage production & LED walls</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>RFID delegate badges & security</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Executive dining & guest transport</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <a href="booking.html" class="inline-flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-meetco-purple group-hover:text-meetco-navy transition-colors">
+                <span>Book Corporate Event</span>
+                <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+              </a>
+              <span class="w-8 h-8 rounded-full bg-meetco-light group-hover:bg-meetco-yellow flex items-center justify-center text-xs text-meetco-navy transition-colors">
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+
+          <!-- Service 5: Workshops & Seminars -->
+          <div class="service-card p-7 sm:p-8 flex flex-col justify-between group">
+            <div>
+              <div class="w-16 h-16 rounded-[10px] bg-meetco-yellow/25 group-hover:bg-meetco-yellow text-meetco-navy flex items-center justify-center text-3xl mb-6 shadow-sm transition-all duration-300">
+                📚
+              </div>
+              <h3 class="text-meetco-navy text-2xl font-bold font-heading mb-3 group-hover:text-meetco-purple transition-colors">
+                Workshops & Seminars
+              </h3>
+              <p class="text-meetco-body text-sm leading-relaxed mb-6">
+                Engaging classroom layouts, keynote audio setups, digital attendee materials, translation headsets, interactive polls, and certified certificates.
+              </p>
+              <ul class="space-y-2.5 text-xs text-meetco-body font-medium mb-6">
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Breakout room management</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Audio-visual technician on standby</span>
+                </li>
+                <li class="flex items-center gap-2">
+                  <i class="fa-solid fa-circle-check text-meetco-purple"></i>
+                  <span>Hybrid remote streaming setup</span>
+                </li>
+              </ul>
+            </div>
+            <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+              <a href="booking.html" class="inline-flex items-center gap-2 font-extrabold text-xs uppercase tracking-wider text-meetco-purple group-hover:text-meetco-navy transition-colors">
+                <span>Book Workshop Planning</span>
+                <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+              </a>
+              <span class="w-8 h-8 rounded-full bg-meetco-light group-hover:bg-meetco-yellow flex items-center justify-center text-xs text-meetco-navy transition-colors">
+                <i class="fa-solid fa-chevron-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Pricing Packages Section -->
+  <section id="pricing-section" class="py-20 sm:py-24 bg-meetco-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Transparent Rates</span>
+        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+          Event Pricing Packages
+        </h2>
+        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+          Choose a comprehensive package or customize your booking request.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Silver Package -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Essential</span>
+            <h3 class="text-2xl font-black font-heading text-meetco-navy mt-1">Silver Package</h3>
+            <div class="my-6">
+              <span class="text-4xl sm:text-5xl font-black text-meetco-navy font-heading">$800</span>
+              <span class="text-xs text-slate-400 font-semibold">/ event base</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+              Perfect for birthday parties, private workshops, and intimate family gatherings up to 50 guests.
+            </p>
+            <ul class="space-y-3 text-xs text-slate-600 mb-8">
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Event Planner Consultation</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Standard Sound & Lighting Setup</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Up to 4 Hours Event Coverage</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Photography Highlights (100 Photos)</li>
+              <li class="flex items-center gap-3 text-slate-400"><i class="fa-solid fa-xmark"></i> Dedicated Day-of Concierge</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl border-2 border-meetco-navy text-meetco-navy hover:bg-meetco-navy hover:text-white font-bold text-xs uppercase tracking-wider transition-colors">
+            Choose Silver
+          </a>
+        </div>
+
+        <!-- Gold Package (Featured) -->
+        <div class="bg-meetco-navy text-white rounded-3xl p-8 sm:p-10 shadow-2xl relative border-2 border-meetco-yellow flex flex-col justify-between transform lg:-translate-y-3">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-meetco-yellow text-meetco-navy font-black text-[11px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md">
+            Most Popular
+          </div>
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-meetco-yellow">Premium Choice</span>
+            <h3 class="text-2xl font-black font-heading text-white mt-1">Gold Package</h3>
+            <div class="my-6">
+              <span class="text-4xl sm:text-5xl font-black text-meetco-yellow font-heading">$1,800</span>
+              <span class="text-xs text-white/70 font-semibold">/ event base</span>
+            </div>
+            <p class="text-xs text-white/80 mb-6 leading-relaxed">
+              Designed for luxury weddings, corporate seminars, and grand celebrations up to 250 guests.
+            </p>
+            <ul class="space-y-3 text-xs text-white/90 mb-8">
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-meetco-yellow"></i> 2 Dedicated Event Coordinators</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-meetco-yellow"></i> Complete Floral & Thematic Decor</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-meetco-yellow"></i> Full Day Coverage (Up to 8 Hours)</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-meetco-yellow"></i> 4K Video Highlights & Drone Footage</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-meetco-yellow"></i> Banquet Catering Management</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl bg-meetco-yellow text-meetco-navy hover:bg-white font-bold text-xs uppercase tracking-wider transition-colors shadow-lg">
+            Choose Gold
+          </a>
+        </div>
+
+        <!-- Platinum Package -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Bespoke Royal</span>
+            <h3 class="text-2xl font-black font-heading text-meetco-navy mt-1">Platinum Package</h3>
+            <div class="my-6">
+              <span class="text-4xl sm:text-5xl font-black text-meetco-navy font-heading">$3,500</span>
+              <span class="text-xs text-slate-400 font-semibold">/ event base</span>
+            </div>
+            <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+              Ultra-luxury destination weddings, international summits, and large festivals with unlimited guests.
+            </p>
+            <ul class="space-y-3 text-xs text-slate-600 mb-8">
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Full Executive Team on Ground</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Multi-Day Itinerary & Airport Concierge</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> International Celebrity Artist Booking</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Multi-Camera Live Broadcast Staging</li>
+              <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> VIP Security & Luxury Transportation</li>
+            </ul>
+          </div>
+          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl border-2 border-meetco-navy text-meetco-navy hover:bg-meetco-navy hover:text-white font-bold text-xs uppercase tracking-wider transition-colors">
+            Choose Platinum
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials-section" class="py-28 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Our Real Reviews</span>
+          <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+            What Clients Say About Meetco
+          </h2>
+        </div>
+        
+        <div class="flex items-center gap-3">
+          <button id="testimonial-prev" class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-meetco-navy hover:bg-meetco-purple hover:text-white transition-colors" aria-label="Previous">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <button id="testimonial-next" class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-meetco-navy hover:bg-meetco-purple hover:text-white transition-colors" aria-label="Next">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Testimonials Slider Track -->
+    <div class="max-w-[1520px] mx-auto px-4 overflow-hidden">
+      <div id="testimonials-track" class="flex gap-6 transition-transform duration-500 ease-out">
+        
+        <!-- Slide 1 -->
+        <div class="min-w-[320px] sm:min-w-[380px] lg:min-w-[420px] testimonial-card flex-shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <img src="assets/img/icon/tes-icon01.svg" alt="" class="w-8 h-8">
+              <div class="flex text-meetco-yellow text-sm gap-1">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+              "Meetco organized our annual corporate gala seamlessly. Every transition, keynote stage, and dining course was executed with precision. Our board was thoroughly impressed!"
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+            <img src="assets/img/avatar/img01.png" alt="Ava Reynolds" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="text-meetco-navy font-bold text-sm">Ava Reynolds</h4>
+              <span class="text-xs text-slate-400">Chief People Officer @ Group M</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="min-w-[320px] sm:min-w-[380px] lg:min-w-[420px] testimonial-card flex-shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <img src="assets/img/icon/tes-icon02.svg" alt="" class="w-8 h-8">
+              <div class="flex text-meetco-yellow text-sm gap-1">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+              "Our destination wedding was pure magic thanks to Meetco. They managed 200 guests from 8 countries with zero stress. Truly world-class event planners!"
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+            <img src="assets/img/avatar/img02.png" alt="Daniel Roberts" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="text-meetco-navy font-bold text-sm">Daniel & Sophia Roberts</h4>
+              <span class="text-xs text-slate-400">Private Wedding Clients</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="min-w-[320px] sm:min-w-[380px] lg:min-w-[420px] testimonial-card flex-shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <img src="assets/img/icon/tes-icon03.svg" alt="" class="w-8 h-8">
+              <div class="flex text-meetco-yellow text-sm gap-1">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+              "The photography and videography team delivered breathtaking 4K footage within 48 hours of our product launch event. Highly recommended."
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+            <img src="assets/img/avatar/img03.png" alt="Michael Carter" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="text-meetco-navy font-bold text-sm">Michael Carter</h4>
+              <span class="text-xs text-slate-400">Senior Director @ KCS IT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="min-w-[320px] sm:min-w-[380px] lg:min-w-[420px] testimonial-card flex-shrink-0 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-6">
+              <img src="assets/img/icon/tes-icon04.svg" alt="" class="w-8 h-8">
+              <div class="flex text-meetco-yellow text-sm gap-1">
+                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+              </div>
+            </div>
+            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+              "Our daughter's sweet 16 party was the talk of the town! The decor, DJ, custom mocktail bar, and lighting completely blew everyone away."
+            </p>
+          </div>
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+            <img src="assets/img/avatar/img04.png" alt="Emily Johnson" class="w-12 h-12 rounded-full object-cover">
+            <div>
+              <h4 class="text-meetco-navy font-bold text-sm">Emily Johnson</h4>
+              <span class="text-xs text-slate-400">Birthday Party Client</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section id="faq-section" class="py-28 bg-meetco-light">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-16">
+        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Got Questions?</span>
+        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+          Frequently Asked Questions
+        </h2>
+      </div>
+
+      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-100 divide-y divide-slate-100">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item active">
+          <div class="faq-header">
+            <span>How early should we book our event with Meetco?</span>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p>
+              We recommend booking weddings and large corporate summits at least 3 to 6 months in advance to secure top-tier venues and preferred dates. For birthday parties and photography sessions, 2 to 4 weeks is typically sufficient.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item">
+          <div class="faq-header">
+            <span>Can I customize the services in my booking?</span>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p>
+              Yes! All our packages can be customized. You can select specific services such as photography only, decor only, or full-service turnkey event coordination using our Booking page.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item">
+          <div class="faq-header">
+            <span>What is your cancellation and rescheduling policy?</span>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p>
+              We offer flexible rescheduling options up to 30 days prior to your event date without penalty fees. Detailed terms are provided in your personalized event contract upon booking.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item">
+          <div class="faq-header">
+            <span>Do you manage destination events outside Singapore?</span>
+            <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
+          </div>
+          <div class="faq-body">
+            <p>
+              Yes, our team operates worldwide! We have coordinated luxury destination weddings and international summits in Bali, Dubai, Paris, New York, and Melbourne.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#131053] text-white pt-24 pb-12 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Footer Nav Links -->
+      <div class="text-center pb-14 border-b border-white/10">
+        <ul class="inline-flex flex-wrap justify-center gap-8 text-sm uppercase tracking-wider font-semibold text-white/80">
+          <li><a href="index.html" class="hover:text-meetco-yellow transition-colors">Home</a></li>
+          <li><a href="#services-section" class="hover:text-meetco-yellow transition-colors">Services</a></li>
+          <li><a href="#gallery-section" class="hover:text-meetco-yellow transition-colors">Gallery</a></li>
+          <li><a href="#upcoming-events-section" class="hover:text-meetco-yellow transition-colors">Upcoming Events</a></li>
+          <li><a href="booking.html" class="hover:text-meetco-yellow transition-colors">Booking</a></li>
+          <li><a href="contact.html" class="hover:text-meetco-yellow transition-colors">Contact Us</a></li>
+          <li><a href="login.html" class="hover:text-meetco-yellow transition-colors">Login</a></li>
+          <li><a href="register.html" class="hover:text-meetco-yellow transition-colors">Register</a></li>
+        </ul>
+      </div>
+
+      <!-- 3 Contact Pills -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 py-14 border-b border-white/10">
+        
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0">
+            <img src="assets/img/icon/sms-icon.svg" alt="" class="w-6 h-6">
+          </div>
+          <div>
+            <span class="text-xs uppercase tracking-wider text-slate-400 block font-semibold">Write to Us</span>
+            <a href="mailto:contact@meetco.com" class="text-base font-bold text-white hover:text-meetco-yellow transition-colors">contact@meetco.com</a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0">
+            <img src="assets/img/icon/call-icon.svg" alt="" class="w-6 h-6">
+          </div>
+          <div>
+            <span class="text-xs uppercase tracking-wider text-slate-400 block font-semibold">Call Us</span>
+            <a href="tel:+651304528597" class="text-base font-bold text-white hover:text-meetco-yellow transition-colors">+65 130 452 8597</a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <div class="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center flex-shrink-0">
+            <img src="assets/img/icon/location-white-icon.svg" alt="" class="w-6 h-6">
+          </div>
+          <div>
+            <span class="text-xs uppercase tracking-wider text-slate-400 block font-semibold">Main Office</span>
+            <span class="text-base font-bold text-white">Parkroyal, Hotel Singapore</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Giant Brand Logo -->
+      <div class="py-12 text-center">
+        <img src="assets/img/logo/footer-logo.svg" alt="MEETCO" class="max-w-xs sm:max-w-md mx-auto h-auto opacity-90">
+      </div>
+
+      <!-- Copyright & Social Links -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <p>Copyright © 2025 <strong class="text-white">MEETCO EVENTS</strong>. All rights reserved. Submission Date: 05/09/2026.</p>
+        <div class="flex items-center gap-4">
+          <span>Follow Us:</span>
+          <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Facebook">
+            <i class="fa-brands fa-facebook-f text-xs"></i>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="LinkedIn">
+            <i class="fa-brands fa-linkedin-in text-xs"></i>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Instagram">
+            <i class="fa-brands fa-instagram text-xs"></i>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Main JS -->
+  <script src="js/main.js"></script>
+</body>
+</html>

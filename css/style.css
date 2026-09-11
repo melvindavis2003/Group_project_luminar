@@ -1,0 +1,573 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap');
+
+/* Meetco Custom Brand Display Font */
+@font-face {
+  font-family: 'ARPDisplay';
+  src: url('../assets/fonts/ARP-240.woff2') format('woff2'),
+       url('../assets/fonts/ARP-240.woff') format('woff');
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'ARPDisplay', 'Plus Jakarta Sans', sans-serif;
+  --color-primary: #ffe04b;
+  --color-secondary: #00b8ff;
+  --color-heading: #131053;
+  --color-purple: #260f8f;
+  --color-body: #414047;
+  --color-bg-light: #f2f2f2;
+  --radius-meetco: 10px;
+  --shadow-meetco-header: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --shadow-meetco-card: 0 10px 21px 0 rgba(206, 208, 218, 0.49);
+  --shadow-meetco-hover: 0 6px 55px 0 rgba(82, 71, 175, 0.15);
+}
+
+/* Base styling */
+body {
+  font-family: var(--font-body);
+  color: var(--color-body);
+  background-color: #ffffff;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* Meetco Gradient Utilities */
+.meetco-gradient {
+  background: linear-gradient(181deg, #260f8f 0%, #00b8ff 100%);
+}
+
+.meetco-gradient-hero {
+  background: linear-gradient(180deg, #131053 0%, #260f8f 55%, #00b8ff 100%);
+}
+
+.meetco-gradient-card {
+  background: linear-gradient(135deg, rgba(38, 15, 143, 0.95) 0%, rgba(0, 184, 255, 0.85) 100%);
+}
+
+/* Navigation Header - Floating card stays pure transparent outer, only card floats */
+#main-header {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.meetco-nav-scrolled {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Custom Preloader */
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.main-loader {
+  display: flex;
+  gap: 8px;
+}
+
+.main-loader span {
+  width: 12px;
+  height: 38px;
+  background: #260f8f;
+  border-radius: 6px;
+  animation: barBounce 1.2s infinite ease-in-out;
+}
+
+.main-loader span:nth-child(2) {
+  background: #00b8ff;
+  animation-delay: 0.15s;
+}
+
+.main-loader span:nth-child(3) {
+  background: #ffe04b;
+  animation-delay: 0.3s;
+}
+
+.main-loader span:nth-child(4) {
+  background: #131053;
+  animation-delay: 0.45s;
+}
+
+@keyframes barBounce {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+  }
+  20% {
+    transform: scaleY(1.25);
+  }
+}
+
+/* Back to Top */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #260f8f;
+  color: #ffe04b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 10px 25px rgba(38, 15, 143, 0.35);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+
+.back-to-top.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #ffe04b;
+  color: #131053;
+  transform: translateY(-4px);
+}
+
+/* Meetco Parallax Magnetic Circular CTA Button */
+.forum-circle-btn {
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  background-color: #260f8f;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 16px 36px rgba(38, 15, 143, 0.35);
+  cursor: pointer;
+}
+
+.forum-circle-btn p {
+  font-size: 11px;
+  line-height: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 2px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.forum-circle-btn .dollar {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ffe04b;
+  line-height: 1;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.forum-circle-btn .arrow {
+  margin-top: 6px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.forum-circle-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 22px 48px rgba(38, 15, 143, 0.5);
+}
+
+.forum-circle-btn:hover .arrow {
+  transform: translate(3px, -3px);
+}
+
+.forum-circle-btn--yellow {
+  background-color: #ffe04b;
+  border: 1px solid rgba(19, 16, 83, 0.15);
+  box-shadow: 0 16px 36px rgba(255, 224, 75, 0.35);
+}
+
+.forum-circle-btn--yellow p {
+  color: #131053;
+}
+
+.forum-circle-btn--yellow .dollar {
+  color: #131053;
+}
+
+/* Marquee Animations */
+.marquee-wrapper {
+  overflow: hidden;
+  user-select: none;
+  display: flex;
+  width: 100%;
+}
+
+.marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  animation: scrollLeft 32s linear infinite;
+}
+
+.marquee-content-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  min-width: 100%;
+  animation: scrollRight 32s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-content,
+.marquee-wrapper:hover .marquee-content-right {
+  animation-play-state: paused;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+/* Sponsor Badge Card - Fully Colored Logos matching Meetco */
+.sponsor-badge {
+  position: relative;
+  background: #ffffff;
+  padding: 16px 32px;
+  margin: 0 12px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 210px;
+  height: 78px;
+  box-shadow: 0 10px 21px 0 rgba(206, 208, 218, 0.45);
+  transform: skewX(-8deg);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.dark .sponsor-badge {
+  background: #191444;
+  box-shadow: 0 10px 21px 0 rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sponsor-badge img {
+  transform: skewX(8deg);
+  max-height: 42px;
+  width: auto;
+  object-fit: contain;
+  filter: none !important;
+  opacity: 1 !important;
+  transition: all 0.3s ease;
+}
+
+.sponsor-badge:hover {
+  transform: skewX(-8deg) translateY(-4px);
+  box-shadow: 0 16px 32px rgba(82, 71, 175, 0.18);
+}
+
+.sponsor-badge:hover img {
+  transform: skewX(8deg) scale(1.06);
+}
+
+/* Meetco Floating Header Card (.header__wrap) - High visibility across all backgrounds */
+.meetco-header-wrap {
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1.5px solid rgba(19, 16, 83, 0.12);
+  box-shadow: 0 10px 30px rgba(19, 16, 83, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.meetco-nav-scrolled .meetco-header-wrap {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(19, 16, 83, 0.16);
+  box-shadow: 0 14px 38px rgba(19, 16, 83, 0.14), 0 3px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Header adapts to background section */
+.meetco-header-wrap.header-bg-light {
+  background: #ffffff;
+  border-color: rgba(19, 16, 83, 0.18);
+  box-shadow: 0 14px 36px rgba(19, 16, 83, 0.14), 0 2px 8px rgba(19, 16, 83, 0.06);
+}
+
+.meetco-header-wrap.header-bg-dark {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25), 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+/* Navigation Links - Interactive pills with active background section state */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #131053;
+  transition: all 0.25s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+@media (min-width: 1536px) {
+  .nav-link {
+    font-size: 0.875rem;
+    padding: 7px 16px;
+  }
+}
+
+.nav-link:hover {
+  color: #260f8f;
+  background-color: rgba(38, 15, 143, 0.07);
+}
+
+.nav-link.active-nav-section {
+  background-color: #ffe04b !important;
+  color: #131053 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 3px 12px rgba(255, 224, 75, 0.45);
+}
+
+/* Mobile Dropdown Nav Links */
+.mobile-nav-link {
+  display: block;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #131053;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.mobile-nav-link:hover {
+  background-color: rgba(38, 15, 143, 0.07);
+  color: #260f8f;
+}
+
+.mobile-nav-link.active-nav-section {
+  background-color: #ffe04b !important;
+  color: #131053 !important;
+  font-weight: 800 !important;
+}
+
+/* Meetco Standard Card Corners (10px) & Shadows */
+.meetco-card {
+  border-radius: 10px;
+  box-shadow: 0 10px 21px 0 rgba(206, 208, 218, 0.45);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.meetco-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(38, 15, 143, 0.14);
+}
+
+/* Service Cards in Services Section - High Contrast Solid White Cards */
+.service-card {
+  background: #ffffff !important;
+  color: #131053 !important;
+  border-radius: 10px;
+  border: 1px solid rgba(19, 16, 83, 0.08);
+  box-shadow: 0 12px 30px rgba(19, 16, 83, 0.18), 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(19, 16, 83, 0.28), 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Event Gallery Tabs & Cards */
+.gallery-filter-btn {
+  transition: all 0.25s ease;
+}
+
+.gallery-filter-btn.active {
+  background-color: #260f8f;
+  color: #ffe04b;
+  box-shadow: 0 6px 20px rgba(38, 15, 143, 0.3);
+}
+
+.gallery-item {
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.gallery-item.hidden-item {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+  position: absolute;
+  visibility: hidden;
+}
+
+/* Card Hover Lift */
+.hover-lift {
+  transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.35s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+}
+
+/* Testimonial slider card */
+.testimonial-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 36px 32px;
+  border: 1px solid #eef0f4;
+  box-shadow: 0 10px 30px rgba(19, 16, 83, 0.04);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  border-color: #ffe04b;
+  box-shadow: 0 15px 40px rgba(19, 16, 83, 0.1);
+}
+
+/* FAQ Accordion */
+.faq-item {
+  border-bottom: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.faq-header {
+  cursor: pointer;
+  padding: 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #131053;
+  transition: color 0.2s ease;
+}
+
+.faq-header:hover {
+  color: #260f8f;
+}
+
+.faq-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #131053;
+  transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+  background: #260f8f;
+  color: #ffe04b;
+}
+
+.faq-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.35s ease;
+  color: #55535c;
+  line-height: 1.7;
+}
+
+.faq-item.active .faq-body {
+  max-height: 300px;
+  padding-bottom: 24px;
+}
+
+/* Offcanvas Sidebar */
+.offcanvas-sidebar {
+  position: fixed;
+  top: 0;
+  right: -450px;
+  width: 420px;
+  max-width: 90vw;
+  height: 100vh;
+  background: #131053;
+  color: #ffffff;
+  z-index: 10000;
+  padding: 45px 40px;
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+  transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  overflow-y: auto;
+}
+
+.offcanvas-sidebar.active {
+  right: 0;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(19, 16, 83, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.sidebar-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Floating shape keyframes */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.animate-float-up {
+  animation: floatUp 5s ease-in-out infinite;
+}

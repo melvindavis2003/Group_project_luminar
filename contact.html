@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Meetco Events</title>
+  <meta name="description" content="Contact Meetco Events specialists for event consultations, custom package estimates, or venue tours.">
+  <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            meetco: {
+              yellow: '#ffe04b',
+              cyan: '#00b8ff',
+              navy: '#131053',
+              purple: '#260f8f',
+              body: '#414047',
+              light: '#f2f2f2',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            heading: ['ARPDisplay', 'Plus Jakarta Sans', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Font Awesome 6 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- GSAP 3 CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="bg-white text-meetco-body antialiased selection:bg-meetco-yellow selection:text-meetco-navy relative min-h-screen flex flex-col justify-between">
+
+  <!-- Mouse Tracking Cursor (Tailwind CSS & GSAP) -->
+  <div id="cursor-dot" class="fixed top-0 left-0 w-2.5 h-2.5 bg-meetco-yellow rounded-full pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 hidden lg:block"></div>
+  <div id="cursor-ring" class="fixed top-0 left-0 w-9 h-9 rounded-full border-2 border-meetco-yellow/80 pointer-events-none z-[99998] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-[opacity,border-color,background-color] duration-300 hidden lg:block"></div>
+
+  <!-- Offcanvas Sidebar Overlay -->
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
+  <!-- Offcanvas Sidebar Drawer -->
+  <aside id="offcanvas-sidebar" class="offcanvas-sidebar flex flex-col justify-between" aria-label="Sidebar Menu">
+    <div>
+      <div class="flex items-center justify-between pb-8 border-b border-white/10 mb-8">
+        <a href="index.html">
+          <img src="assets/img/logo/logo-two.svg" alt="Meetco Logo" class="h-9 w-auto">
+        </a>
+        <button id="close-sidebar-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <p class="text-white/80 text-base leading-relaxed mb-8">
+        Meetco is your premier full-service event management partner. We design, coordinate, and execute breathtaking weddings, birthday celebrations, corporate summits, and workshops with perfection.
+      </p>
+
+      <div class="mb-8">
+        <h4 class="text-white text-lg font-bold font-heading mb-4">Quick Navigation</h4>
+        <ul class="space-y-2.5 text-sm font-medium text-white/80">
+          <li><a href="index.html" class="hover:text-meetco-yellow transition-colors block py-1">Home Overview</a></li>
+          <li><a href="index.html#services-section" class="hover:text-meetco-yellow transition-colors block py-1">Our Services</a></li>
+          <li><a href="index.html#gallery-section" class="hover:text-meetco-yellow transition-colors block py-1">Events Gallery</a></li>
+          <li><a href="index.html#upcoming-events-section" class="hover:text-meetco-yellow transition-colors block py-1">Upcoming Events</a></li>
+          <li><a href="booking.html" class="hover:text-meetco-yellow transition-colors block py-1">Event Booking</a></li>
+          <li><a href="contact.html" class="text-meetco-yellow font-bold block py-1">Contact Specialists</a></li>
+          <li><a href="login.html" class="hover:text-meetco-yellow transition-colors block py-1">Client Login</a></li>
+          <li><a href="register.html" class="hover:text-meetco-yellow transition-colors block py-1">Create Account</a></li>
+        </ul>
+      </div>
+
+      <div class="mb-8">
+        <h4 class="text-white text-lg font-bold font-heading mb-4">Contact Information</h4>
+        <ul class="space-y-3.5 text-sm text-white/80">
+          <li class="flex items-center gap-3">
+            <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
+            <span>PARKROYAL, Hotel Singapore & Melbone St, NY</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
+            <a href="tel:+8180012345678" class="hover:text-meetco-yellow transition-colors">+81 800 123 456 78</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
+            <a href="mailto:contact@meetco.com" class="hover:text-meetco-yellow transition-colors">contact@meetco.com</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="text-white text-sm font-bold font-heading mb-3">Newsletter Updates</h4>
+      <form action="#" class="relative" onsubmit="event.preventDefault(); alert('Subscribed to Meetco Event Updates!');">
+        <input type="email" placeholder="Enter your email" required class="w-full bg-white/10 border border-white/20 rounded-full py-3 pl-4 pr-12 text-white placeholder-white/50 text-xs focus:outline-none focus:border-meetco-yellow">
+        <button type="submit" class="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-meetco-yellow text-meetco-navy flex items-center justify-center hover:scale-105 transition-transform" aria-label="Subscribe">
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Header Navigation - Authentic Meetco Floating Card Navbar -->
+  <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 pt-5 sm:pt-7 pb-2 pointer-events-none">
+    <div class="w-full max-w-[96%] xl:max-w-[1780px] 2xl:max-w-[1840px] mx-auto px-2 sm:px-4 pointer-events-auto">
+      <div class="meetco-header-wrap px-6 sm:px-10 lg:px-12 py-3.5 sm:py-4 flex items-center justify-between">
+        
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center flex-shrink-0">
+          <img src="assets/img/logo/logo.svg" alt="Meetco Logo" class="h-8 sm:h-9 w-auto">
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav class="hidden xl:flex items-center space-x-1.5 2xl:space-x-2.5">
+          <a href="index.html" class="nav-link">
+            Home
+          </a>
+          <a href="index.html#services-section" class="nav-link">
+            Services
+          </a>
+          <a href="index.html#gallery-section" class="nav-link">
+            Gallery
+          </a>
+          <a href="index.html#upcoming-events-section" class="nav-link">
+            Upcoming
+          </a>
+          <a href="index.html#pricing-section" class="nav-link">
+            Pricing
+          </a>
+          <a href="booking.html" class="nav-link">
+            Booking
+          </a>
+          <a href="contact.html" class="nav-link active-nav-section">
+            Contact
+          </a>
+        </nav>
+
+        <!-- Right Tools: Auth & Meetco Yellow Offcanvas Button -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          
+          <!-- Auth Links -->
+          <div class="hidden sm:flex items-center gap-2">
+            <a href="login.html" class="text-meetco-navy text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg hover:text-meetco-purple transition-colors">
+              Login
+            </a>
+            <a href="register.html" class="bg-meetco-purple text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-meetco-navy transition-colors shadow-sm">
+              Register
+            </a>
+          </div>
+
+          <!-- Iconic Meetco Circular Offcanvas Trigger -->
+          <button class="open-sidebar-btn w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-meetco-yellow hover:bg-meetco-cyan transition-colors flex items-center justify-center shadow-md flex-shrink-0" aria-label="Open Sidebar Menu">
+            <svg width="22" height="22" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23.8333 9.23V4.31166C23.8333 2.78416 23.14 2.16666 21.4175 2.16666H17.0408C15.3183 2.16666 14.625 2.78416 14.625 4.31166V9.21916C14.625 10.7575 15.3183 11.3642 17.0408 11.3642H21.4175C23.14 11.375 23.8333 10.7575 23.8333 9.23Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M23.8333 21.4175V17.0408C23.8333 15.3183 23.14 14.625 21.4175 14.625H17.0408C15.3183 14.625 14.625 15.3183 14.625 17.0408V21.4175C14.625 23.14 15.3183 23.8333 17.0408 23.8333H21.4175C23.14 23.8333 23.8333 23.14 23.8333 21.4175Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M11.3748 9.23V4.31166C11.3748 2.78416 10.6815 2.16666 8.959 2.16666H4.58234C2.85984 2.16666 2.1665 2.78416 2.1665 4.31166V9.21916C2.1665 10.7575 2.85984 11.3642 4.58234 11.3642H8.959C10.6815 11.375 11.3748 10.7575 11.3748 9.23Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M11.3748 21.4175V17.0408C11.3748 15.3183 10.6815 14.625 8.959 14.625H4.58234C2.85984 14.625 2.1665 15.3183 2.1665 17.0408V21.4175C2.1665 23.14 2.85984 23.8333 4.58234 23.8333H8.959C10.6815 23.8333 11.3748 23.14 11.3748 21.4175Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobile-menu-btn" class="xl:hidden p-2 text-meetco-navy hover:text-meetco-purple focus:outline-none" aria-label="Toggle Navigation Menu">
+            <i class="fa-solid fa-bars text-xl"></i>
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="hidden xl:hidden bg-white rounded-[10px] mt-2 p-5 shadow-2xl border border-slate-200">
+        <nav class="flex flex-col space-y-1.5">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="index.html#services-section" class="mobile-nav-link">Services</a>
+          <a href="index.html#gallery-section" class="mobile-nav-link">Events Gallery</a>
+          <a href="index.html#upcoming-events-section" class="mobile-nav-link">Upcoming Events</a>
+          <a href="index.html#pricing-section" class="mobile-nav-link">Pricing Packages</a>
+          <a href="booking.html" class="mobile-nav-link">Booking Form</a>
+          <a href="contact.html" class="mobile-nav-link active-nav-section">Contact Us</a>
+          <div class="pt-4 border-t border-slate-100 flex gap-3">
+            <a href="login.html" class="flex-1 text-center py-2.5 bg-slate-100 text-meetco-navy rounded-lg font-bold text-sm hover:bg-slate-200 transition-colors">Login</a>
+            <a href="register.html" class="flex-1 text-center py-2.5 bg-meetco-purple text-white rounded-lg font-bold text-sm hover:bg-meetco-navy transition-colors">Register</a>
+          </div>
+        </nav>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Contact Section -->
+  <main class="pt-36 sm:pt-40 pb-24 flex-grow bg-meetco-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Page Title -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Get In Touch</span>
+        <h1 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+          Contact Our Event Specialists
+        </h1>
+        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+          Have an inquiry, need a venue walkthrough, or want to explore customized event production? Reach out to us below.
+        </p>
+      </div>
+
+      <!-- 3 Contact Information Cards Required by Brief -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        
+        <!-- 1. Company Address -->
+        <div class="bg-white rounded-[10px] p-8 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-slate-200 flex items-center gap-5 hover-lift">
+          <div class="w-14 h-14 rounded-2xl bg-meetco-purple/10 text-meetco-purple flex items-center justify-center text-xl flex-shrink-0">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Company Address</span>
+            <p class="text-meetco-navy font-bold text-sm leading-snug">
+              PARKROYAL, Hotel Singapore<br>
+              <span class="text-xs font-normal text-slate-500">Melbone St, Australia & NY Branch</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- 2. Email Address -->
+        <div class="bg-white rounded-[10px] p-8 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-slate-200 flex items-center gap-5 hover-lift">
+          <div class="w-14 h-14 rounded-2xl bg-meetco-purple/10 text-meetco-purple flex items-center justify-center text-xl flex-shrink-0">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Email Support</span>
+            <a href="mailto:contact@meetco.com" class="text-meetco-navy font-bold text-sm block hover:text-meetco-purple transition-colors">
+              contact@meetco.com
+            </a>
+            <span class="text-xs text-slate-500">Replies within 4 business hours</span>
+          </div>
+        </div>
+
+        <!-- 3. Phone Number -->
+        <div class="bg-white rounded-[10px] p-8 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-slate-200 flex items-center gap-5 hover-lift">
+          <div class="w-14 h-14 rounded-2xl bg-meetco-purple/10 text-meetco-purple flex items-center justify-center text-xl flex-shrink-0">
+            <i class="fa-solid fa-phone"></i>
+          </div>
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400 block mb-1">Phone Number</span>
+            <a href="tel:+651304528597" class="text-meetco-navy font-bold text-sm block hover:text-meetco-purple transition-colors">
+              +65 130 452 8597
+            </a>
+            <span class="text-xs text-slate-500">Mon - Sat: 9:00 AM - 7:00 PM</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact Form with GSAP Scale Effect -->
+      <div class="max-w-3xl mx-auto bg-white rounded-[10px] p-8 sm:p-12 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-slate-200">
+        
+        <div class="text-center mb-8">
+          <h2 class="text-2xl sm:text-3xl font-black font-heading text-meetco-navy mb-2">
+            Send Us A Message
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500">
+            Fill out the form below and our team will get back to you with guidance and proposals.
+          </p>
+        </div>
+
+        <div id="contact-success-msg" class="hidden mb-6 p-4 rounded-[10px] bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs text-center font-bold">
+          ✓ Your message has been dispatched successfully! Our team will respond shortly.
+        </div>
+
+        <form id="contact-form" class="space-y-6">
+          
+          <!-- Name Field -->
+          <div>
+            <label for="contact-name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Name*</label>
+            <div class="relative">
+              <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="text" id="contact-name" required placeholder="John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-[10px] pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+            </div>
+          </div>
+
+          <!-- Email Field -->
+          <div>
+            <label for="contact-email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Email*</label>
+            <div class="relative">
+              <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+              <input type="email" id="contact-email" required placeholder="john@example.com" class="w-full bg-slate-50 border border-slate-200 rounded-[10px] pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+            </div>
+          </div>
+
+          <!-- Message Field -->
+          <div>
+            <label for="contact-message" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Message*</label>
+            <div class="relative">
+              <textarea id="contact-message" required rows="5" placeholder="Share your event ideas, expected dates, estimated guests, or specific questions..." class="w-full bg-slate-50 border border-slate-200 rounded-[10px] p-4 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20"></textarea>
+            </div>
+          </div>
+
+          <!-- Send Message Button -->
+          <div>
+            <button type="submit" class="w-full py-4 rounded-[10px] bg-meetco-purple text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
+              <span>Send Message</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#131053] text-white pt-16 pb-10 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 pb-8 border-b border-white/10">
+        <p>Copyright © 2025 <strong class="text-white">MEETCO EVENTS</strong>. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="index.html" class="hover:text-meetco-yellow">Home</a>
+          <a href="booking.html" class="hover:text-meetco-yellow">Booking</a>
+          <a href="contact.html" class="hover:text-meetco-yellow">Contact</a>
+        </div>
+      </div>
+      <div class="pt-6 text-center text-xs text-slate-500">
+        Submission Date: 05/09/2026. Event Management Booking Website.
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
