@@ -9,14 +9,14 @@ A modern, responsive, animation-rich **Event Management Booking Website** built 
 ## 📌 Project Overview
 
 - **Objective**: Design and develop a comprehensive Event Management Booking Website allowing clients to explore event services, view upcoming events, inspect gallery showcases, register, log in, submit bookings, and contact the company.
-- **Aesthetic**: Authentic Meetco Conference & Event Template styling (`#ffe04b`, `#260f8f`, `#00b8ff`, `#131053`).
+- **Theme**: Event Management Platform color scheme (`#ffe04b`, `#260f8f`, `#00b8ff`, `#131053`).
 - **Online Build**: [https://melvindavis2003.github.io/Group_project_luminar/](https://melvindavis2003.github.io/Group_project_luminar/)
 - **Live / Local URL**: `http://localhost:8080`
-- **Submission Date**: 05/09/2026
+- **Submission Date**: 19/09/2026
 
 ---
 
-## 🛠️ Technologies Required & Used
+## 🛠️ Technologies Used
 
 - **HTML5**: Semantic tags, accessible forms, meta descriptions, and clean structure.
 - **CSS3**: Custom keyframe animations, glassmorphism, polygon clipping badges, and CSS variables.
@@ -48,7 +48,7 @@ A modern, responsive, animation-rich **Event Management Booking Website** built 
 - **Pricing Packages**: Silver, Gold (Featured), and Platinum packages with full breakdown.
 - **Testimonials Section**: Carousel review slider with star ratings, client quotes, and next/prev controls.
 - **FAQ Section**: Interactive accordion addressing common client questions.
-- **Footer**: Company information, contact pills, social media icons, and copyright.
+- **Footer**: Company information, contact pills, social media icons, and submission date.
 
 ### 2. Login Page (`login.html`)
 - **Form Fields**: Username / Email, Password, Remember Me option.
@@ -62,7 +62,7 @@ A modern, responsive, animation-rich **Event Management Booking Website** built 
 - **Additional Link**: "Already have an account? Login Here" (`login.html`).
 
 ### 4. Booking Page (`booking.html`)
-- **Booking Form Fields** (All 8 required fields):
+- **Booking Form Fields**:
   1. Full Name
   2. Email Address
   3. Phone Number
@@ -84,9 +84,9 @@ A modern, responsive, animation-rich **Event Management Booking Website** built 
 
 ## 🎨 Design System & Additional Features
 
-- **Meetco Design System**: Authentic Meetco typography (`ARPDisplay`, `Inter`), 10px corners, soft shadows, and vibrant palette.
-- **Responsive Web Design**: 100% responsive across Mobile, Tablet, Laptop, and 4K Desktop viewports.
-- **Assets**: 83 authentic Meetco images, SVGs, logos, speaker portraits, and decorative shapes downloaded locally in `assets/img/`.
+- **Design System**: Typography (`ARPDisplay`, `Inter`), 10px rounded corners, soft shadows, and vibrant color palette.
+- **Responsive Web Design**: Fully responsive across mobile, tablet, laptop, and desktop viewports.
+- **Assets**: Curated images, SVGs, logos, portraits, and decorative graphics in `assets/img/`.
 
 ---
 

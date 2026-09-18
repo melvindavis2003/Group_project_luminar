@@ -11,6 +11,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -31,6 +32,18 @@
       }
     }
   </script>
+  <!-- Theme script -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('meetco_theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
 
   <!-- Google Fonts & Font Awesome 6 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,9 +58,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 </head>
-<body class="bg-white text-meetco-body antialiased selection:bg-meetco-yellow selection:text-meetco-navy relative">
+<body class="bg-white dark:bg-[#0c0a2a] text-meetco-body dark:text-slate-300 antialiased selection:bg-meetco-yellow selection:text-meetco-navy relative transition-colors duration-300">
 
-  <!-- Mouse Tracking Cursor (Tailwind CSS & GSAP) -->
+  <!-- Custom cursor -->
   <div id="cursor-dot" class="fixed top-0 left-0 w-2.5 h-2.5 bg-meetco-yellow rounded-full pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 hidden lg:block"></div>
   <div id="cursor-ring" class="fixed top-0 left-0 w-9 h-9 rounded-full border-2 border-meetco-yellow/80 pointer-events-none z-[99998] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-[opacity,border-color,background-color] duration-300 hidden lg:block"></div>
 
@@ -76,9 +89,14 @@
         <a href="index.html">
           <img src="assets/img/logo/logo-two.svg" alt="Meetco Logo" class="h-9 w-auto">
         </a>
-        <button id="close-sidebar-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Close Sidebar">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
+        <div class="flex items-center gap-2">
+          <button type="button" class="theme-toggle-btn" aria-label="Toggle Dark / Light Theme" title="Toggle Theme">
+            <i class="fa-solid fa-moon text-base text-meetco-navy"></i>
+          </button>
+          <button id="close-sidebar-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Close Sidebar">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
       </div>
 
       <p class="text-white/80 text-base leading-relaxed mb-8">
@@ -104,11 +122,11 @@
         <ul class="space-y-3.5 text-sm text-white/80">
           <li class="flex items-center gap-3">
             <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
-            <span>PARKROYAL, Hotel Singapore & Melbone St, NY</span>
+            <span>Luminar Technology, Thrissur</span>
           </li>
           <li class="flex items-center gap-3">
             <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
-            <a href="tel:+8180012345678" class="hover:text-meetco-yellow transition-colors">+81 800 123 456 78</a>
+            <a href="tel:+918547228913" class="hover:text-meetco-yellow transition-colors">+91 8547228913</a>
           </li>
           <li class="flex items-center gap-3">
             <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
@@ -132,14 +150,14 @@
   <!-- Top Anchor -->
   <div id="top"></div>
 
-  <!-- Header Navigation - Authentic Meetco Floating Card Navbar -->
+  <!-- Header navigation -->
   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 pt-5 sm:pt-7 pb-2 pointer-events-none">
     <div class="w-full max-w-[96%] xl:max-w-[1780px] 2xl:max-w-[1840px] mx-auto px-2 sm:px-4 pointer-events-auto">
       <div class="meetco-header-wrap px-6 sm:px-10 lg:px-12 py-3.5 sm:py-4 flex items-center justify-between">
         
         <!-- Logo -->
         <a href="index.html" class="flex items-center flex-shrink-0">
-          <img src="assets/img/logo/logo.svg" alt="Meetco Logo" class="h-8 sm:h-9 w-auto">
+          <img src="assets/img/logo/logo.svg" alt="Meetco Logo" class="meetco-header-logo h-8 sm:h-9 w-auto transition-opacity duration-300">
         </a>
 
         <!-- Desktop Navigation Menu -->
@@ -167,7 +185,7 @@
           </a>
         </nav>
 
-        <!-- Right Tools: Auth & Meetco Yellow Offcanvas Button -->
+        <!-- Right nav items -->
         <div class="flex items-center gap-3 sm:gap-4">
           
           <!-- Auth Links -->
@@ -180,7 +198,12 @@
             </a>
           </div>
 
-          <!-- Iconic Meetco Circular Offcanvas Trigger -->
+          <!-- Theme Toggle Button -->
+          <button type="button" class="theme-toggle-btn" aria-label="Toggle Dark / Light Theme" title="Toggle Theme">
+            <i class="fa-solid fa-moon text-base text-meetco-navy"></i>
+          </button>
+
+          <!-- Sidebar trigger -->
           <button class="open-sidebar-btn w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-meetco-yellow hover:bg-meetco-cyan transition-colors flex items-center justify-center shadow-md flex-shrink-0" aria-label="Open Sidebar Menu">
             <svg width="22" height="22" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M23.8333 9.23V4.31166C23.8333 2.78416 23.14 2.16666 21.4175 2.16666H17.0408C15.3183 2.16666 14.625 2.78416 14.625 4.31166V9.21916C14.625 10.7575 15.3183 11.3642 17.0408 11.3642H21.4175C23.14 11.375 23.8333 10.7575 23.8333 9.23Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -230,7 +253,7 @@
         <span class="inline-block bg-white/10 text-meetco-yellow border border-meetco-yellow/30 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
           ✨ Premier Event Management & Booking Platform
         </span>
-        <h1 class="text-white text-5xl sm:text-7xl lg:text-9xl font-black tracking-tight uppercase font-heading drop-shadow-sm">
+        <h1 class="text-white text-5xl sm:text-7xl lg:text-9xl font-black tracking-tight uppercase hero-main-title drop-shadow-sm" style="font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;">
           MEETCO EVENTS
         </h1>
         
@@ -238,7 +261,7 @@
           <p class="text-meetco-yellow text-xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-wide">
             CRAFTING UNFORGETTABLE EXPERIENCES
           </p>
-          <span class="text-white text-3xl sm:text-5xl lg:text-6xl font-black font-heading">
+          <span class="text-white text-3xl sm:text-5xl lg:text-6xl font-black hero-main-title" style="font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;">
             2025
           </span>
         </div>
@@ -260,7 +283,7 @@
             </div>
             <div>
               <span class="text-xs font-semibold text-meetco-yellow uppercase tracking-wider block">Headquarters:</span>
-              <p class="text-white text-sm sm:text-base font-bold">PARKROYAL, Singapore & NY</p>
+              <p class="text-white text-sm sm:text-base font-bold">Luminar Technology, Thrissur</p>
             </div>
           </div>
 
@@ -293,7 +316,7 @@
 
     </div>
 
-    <!-- Dual Floating Cutouts with Mouse Parallax -->
+    <!-- Hero images -->
     <div class="hidden xl:block pointer-events-none">
       <div id="hero-img-1" class="absolute left-8 bottom-4 w-72 2xl:w-80 transition-transform duration-150 ease-out">
         <img src="assets/img/hero/hero-img01.png" alt="Event Planner" class="w-full h-auto drop-shadow-2xl">
@@ -304,10 +327,10 @@
     </div>
   </section>
 
-  <!-- Brands / Partner Venues Marquee -->
-  <section class="py-16 bg-meetco-light border-y border-slate-200 overflow-hidden">
+  <!-- Partner sponsors -->
+  <section class="py-16 bg-meetco-light dark:bg-[#0f0c36] border-y border-slate-200 dark:border-white/10 overflow-hidden transition-colors">
     <div class="max-w-7xl mx-auto px-4 text-center mb-8">
-      <span class="inline-block bg-white text-meetco-navy font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-full shadow-sm">
+      <span class="inline-block bg-white dark:bg-[#161245] text-meetco-navy dark:text-white font-bold text-xs uppercase tracking-widest px-6 py-2 rounded-full shadow-sm dark:border dark:border-white/10">
         Trusted By Global Venues & Corporate Brands
       </span>
     </div>
@@ -337,32 +360,32 @@
   </section>
 
   <!-- About Section -->
-  <section id="about-section" class="py-28 bg-white">
+  <section id="about-section" class="py-28 bg-white dark:bg-[#0c0a2a] transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-20">
         
         <div class="lg:col-span-6">
-          <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-3">About Meetco</span>
-          <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight mb-6">
+          <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-3">About Meetco</span>
+          <h2 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight mb-6">
             Pioneering Event Experiences With Perfection & Passion
           </h2>
-          <p class="text-meetco-body text-base sm:text-lg leading-relaxed mb-6">
+          <p class="text-meetco-body dark:text-slate-300 text-base sm:text-lg leading-relaxed mb-6">
             Meetco is an award-winning event management and production agency with over a decade of excellence. We specialize in turning your vision into reality, managing every detail from venue selection and thematic decor to catering, audiovisual setup, and VIP hospitality.
           </p>
 
           <div class="space-y-3.5">
             <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy text-xs font-bold">✓</div>
-              <span class="text-meetco-navy font-semibold text-sm">Full-Service Coordination: End-to-end planning with dedicated coordinators</span>
+              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy dark:text-meetco-yellow text-xs font-bold">✓</div>
+              <span class="text-meetco-navy dark:text-slate-200 font-semibold text-sm">Full-Service Coordination: End-to-end planning with dedicated coordinators</span>
             </div>
             <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy text-xs font-bold">✓</div>
-              <span class="text-meetco-navy font-semibold text-sm">Custom Tailored Packages for weddings, birthdays, and conferences</span>
+              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy dark:text-meetco-yellow text-xs font-bold">✓</div>
+              <span class="text-meetco-navy dark:text-slate-200 font-semibold text-sm">Custom Tailored Packages for weddings, birthdays, and conferences</span>
             </div>
             <div class="flex items-center gap-3">
-              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy text-xs font-bold">✓</div>
-              <span class="text-meetco-navy font-semibold text-sm">Transparent Pricing & instant real-time booking estimation</span>
+              <div class="w-6 h-6 rounded-full bg-meetco-yellow/20 flex items-center justify-center text-meetco-navy dark:text-meetco-yellow text-xs font-bold">✓</div>
+              <span class="text-meetco-navy dark:text-slate-200 font-semibold text-sm">Transparent Pricing & instant real-time booking estimation</span>
             </div>
           </div>
 
@@ -370,7 +393,7 @@
             <a href="booking.html" class="bg-meetco-purple text-white px-7 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs hover:bg-meetco-yellow hover:text-meetco-navy transition-all duration-300 shadow-md">
               Book An Event
             </a>
-            <a href="contact.html" class="border border-slate-300 text-meetco-navy px-7 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs hover:border-meetco-purple transition-all duration-300">
+            <a href="contact.html" class="border border-slate-300 dark:border-white/20 text-meetco-navy dark:text-white px-7 py-3.5 rounded-full font-bold uppercase tracking-wider text-xs hover:border-meetco-purple hover:dark:border-meetco-yellow hover:dark:text-meetco-yellow transition-all duration-300">
               Speak To A Planner
             </a>
           </div>
@@ -381,7 +404,7 @@
             <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform">
               <img src="assets/img/about/img01.jpg" alt="Wedding Event" class="w-full h-64 object-cover">
             </div>
-            <div class="rounded-2xl overflow-hidden shadow-lg mt-8 transform hover:scale-[1.02] transition-transform">
+            <div class="rounded-2xl overflow-hidden shadow-lg transform hover:scale-[1.02] transition-transform">
               <img src="assets/img/about/img02.jpg" alt="Corporate Summit" class="w-full h-64 object-cover">
             </div>
           </div>
@@ -390,34 +413,34 @@
       </div>
 
       <!-- Animated Stat Counters -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-10 border-t border-slate-100">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-10 border-t border-slate-100 dark:border-white/10">
         
-        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
-          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] dark:border dark:border-white/10 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy dark:text-white mb-1">
             <span class="counter-val" data-target="28">0</span><span>K+</span>
           </div>
-          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Happy Clients & Attendees</span>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Happy Clients & Attendees</span>
         </div>
 
-        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
-          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] dark:border dark:border-white/10 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy dark:text-white mb-1">
             <span class="counter-val" data-target="450">0</span><span>+</span>
           </div>
-          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Events Organized</span>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Events Organized</span>
         </div>
 
-        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
-          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] dark:border dark:border-white/10 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy dark:text-white mb-1">
             <span class="counter-val" data-target="40">0</span><span>+</span>
           </div>
-          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Planners & Photographers</span>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Planners & Photographers</span>
         </div>
 
-        <div class="bg-meetco-light/80 rounded-2xl p-6 text-center shadow-sm">
-          <div class="text-4xl font-black font-heading text-meetco-navy mb-1">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] dark:border dark:border-white/10 rounded-2xl p-6 text-center shadow-sm">
+          <div class="text-4xl font-black font-heading text-meetco-navy dark:text-white mb-1">
             <span class="counter-val" data-target="100">0</span><span>%</span>
           </div>
-          <span class="text-xs uppercase font-bold tracking-wider text-slate-500">Satisfaction Rate</span>
+          <span class="text-xs uppercase font-bold tracking-wider text-slate-500 dark:text-slate-400">Satisfaction Rate</span>
         </div>
 
       </div>
@@ -426,15 +449,15 @@
   </section>
 
   <!-- Events Gallery Section -->
-  <section id="gallery-section" class="py-28 bg-meetco-light">
+  <section id="gallery-section" class="py-28 bg-meetco-light dark:bg-[#0f0c36] transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Our Portfolio</span>
-        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+        <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-2">Our Portfolio</span>
+        <h2 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
           Events Gallery
         </h2>
-        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+        <p class="text-meetco-body dark:text-slate-300 mt-3 text-sm sm:text-base">
           Browse through our curated showcase across our key event categories.
         </p>
 
@@ -536,45 +559,225 @@
           </div>
         </div>
 
+        <!-- Birthday 2 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="birthday">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/birthday-02.jpg" alt="Fantasy Balloon Fiesta" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-purple text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Birthday Parties</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Fantasy Balloon & Magic Fiesta</h3>
+            <p class="text-slate-500 text-xs mt-1">Colorful balloon sculptures, stage magicians & sweet treat stations.</p>
+          </div>
+        </div>
+
+        <!-- Photography 2 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="photography">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/photography-02.jpg" alt="Golden Hour Portrait Shoot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-cyan text-meetco-navy text-[11px] font-bold uppercase px-3 py-1 rounded-full">Photography</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Golden Hour Couple Session</h3>
+            <p class="text-slate-500 text-xs mt-1">Scenic sunset lighting, pre-wedding romance & natural portraits.</p>
+          </div>
+        </div>
+
+        <!-- Corporate 2 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="corporate">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/corporate-02.jpg" alt="Tech Innovation Expo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Corporate Events</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Global Tech Innovation Expo</h3>
+            <p class="text-slate-500 text-xs mt-1">Futuristic stage design, digital exhibition booths & live streaming.</p>
+          </div>
+        </div>
+
+        <!-- Workshop 2 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="workshop">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/workshop-02.jpg" alt="Creative Design Bootcamp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Workshops</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Design Thinking & UX Bootcamp</h3>
+            <p class="text-slate-500 text-xs mt-1">Interactive collaborative sprints, mentor breakouts & prototyping.</p>
+          </div>
+        </div>
+
+        <!-- Wedding 3 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="wedding">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/wedding-03.jpg" alt="Bohemian Beach Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Weddings</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Bohemian Sunset Beach Wedding</h3>
+            <p class="text-slate-500 text-xs mt-1">Coastal floral arch, fairy-lit banquet tables & barefoot vows.</p>
+          </div>
+        </div>
+
+        <!-- Birthday 3 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="birthday">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/birthday-03.jpg" alt="Golden Jubilee Birthday Gala" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-purple text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Birthday Parties</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Golden Jubilee Milestone Gala</h3>
+            <p class="text-slate-500 text-xs mt-1">Champagne reception, personalized nostalgia gallery & live band.</p>
+          </div>
+        </div>
+
+        <!-- Photography 3 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="photography">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/photography-03.jpg" alt="Commercial Brand Photography" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-cyan text-meetco-navy text-[11px] font-bold uppercase px-3 py-1 rounded-full">Photography</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Commercial Brand & Product Shoot</h3>
+            <p class="text-slate-500 text-xs mt-1">Studio strobe lighting, high-res macro details & luxury styling.</p>
+          </div>
+        </div>
+
+        <!-- Corporate 3 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="corporate">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/corporate-03.jpg" alt="Executive Awards Banquet" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Corporate Events</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Annual Excellence Awards Dinner</h3>
+            <p class="text-slate-500 text-xs mt-1">Black-tie gala dining, crystal trophy ceremonies & VIP staging.</p>
+          </div>
+        </div>
+
+        <!-- Workshop 3 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="workshop">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/workshop-03.jpg" alt="Leadership Strategy Seminar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Workshops</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Executive Leadership Roundtable</h3>
+            <p class="text-slate-500 text-xs mt-1">C-suite boardroom strategy, guest speaker panels & networking.</p>
+          </div>
+        </div>
+
+        <!-- Wedding 4 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="wedding">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/wedding-04.jpg" alt="Candlelight Ballroom Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Weddings</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Candlelight Grand Ballroom Soirée</h3>
+            <p class="text-slate-500 text-xs mt-1">Crystal chandeliers, five-course dining & waltz dance floor.</p>
+          </div>
+        </div>
+
+        <!-- Birthday 4 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="birthday">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/birthday-04.jpg" alt="Neon Glow Sweet 16 Party" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-purple text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Birthday Parties</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Neon Glow Sweet 16 DJ Night</h3>
+            <p class="text-slate-500 text-xs mt-1">Laser light choreography, neon mocktail bar & trending DJ sets.</p>
+          </div>
+        </div>
+
+        <!-- Photography 4 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="photography">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/photography-04.jpg" alt="High Fashion Runway Shoot" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-cyan text-meetco-navy text-[11px] font-bold uppercase px-3 py-1 rounded-full">Photography</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">High Fashion Runway Portfolio</h3>
+            <p class="text-slate-500 text-xs mt-1">Couture event coverage, backstage models & magazine-ready edits.</p>
+          </div>
+        </div>
+
+        <!-- Corporate 4 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="corporate">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/corporate-04.jpg" alt="Keynote Strategy Forum" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Corporate Events</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Keynote Business Summit Stage</h3>
+            <p class="text-slate-500 text-xs mt-1">LED mega-screens, acoustic surround sound & media press boxes.</p>
+          </div>
+        </div>
+
+        <!-- Workshop 4 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="workshop">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/workshop-04.jpg" alt="Hybrid AV Production Seminar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-emerald-600 text-white text-[11px] font-bold uppercase px-3 py-1 rounded-full">Workshops</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Hybrid Media & AV Masterclass</h3>
+            <p class="text-slate-500 text-xs mt-1">Audio-visual mixing consoles, wireless mics & remote streaming.</p>
+          </div>
+        </div>
+
+        <!-- Wedding 5 -->
+        <div class="gallery-item rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 hover-lift group" data-category="wedding">
+          <div class="relative overflow-hidden h-64">
+            <img src="assets/img/gallery/wedding-05.jpg" alt="Scenic Vineyard Wedding" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <span class="absolute top-3 right-3 bg-meetco-navy text-meetco-yellow text-[11px] font-bold uppercase px-3 py-1 rounded-full">Weddings</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-meetco-navy font-bold text-lg font-heading">Scenic Vineyard Vows & Dinner</h3>
+            <p class="text-slate-500 text-xs mt-1">Estate wine tastings, rustic wooden arches & sunset photography.</p>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </section>
 
   <!-- Upcoming Events Section -->
-  <section id="upcoming-events-section" class="py-28 bg-white">
+  <section id="upcoming-events-section" class="py-28 bg-white dark:bg-[#0c0a2a] transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Mark Your Calendar</span>
-        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+        <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-2">Mark Your Calendar</span>
+        <h2 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
           Upcoming Events
         </h2>
-        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+        <p class="text-meetco-body dark:text-slate-300 mt-3 text-sm sm:text-base">
           Join our featured events or let us curate your own bespoke celebration.
         </p>
       </div>
 
-      <!-- 4 Event Cards from Project Brief -->
+      <!-- Event cards -->
       <div id="upcoming-events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
         
         <!-- Card 1: Wedding Event -->
-        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 dark:border-white/10 flex flex-col justify-between">
           <div>
             <div class="relative h-52 overflow-hidden">
               <img src="assets/img/about/img01.jpg" alt="Wedding Event" class="w-full h-full object-cover">
               <span class="absolute top-3 left-3 bg-meetco-yellow text-meetco-navy text-xs font-extrabold px-3 py-1 rounded-full uppercase">Wedding</span>
             </div>
             <div class="p-5">
-              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Grand Luxe Wedding Showcase</h3>
-              <div class="space-y-1.5 text-xs text-slate-500">
+              <h3 class="text-meetco-navy dark:text-white font-bold text-lg font-heading mb-2">Grand Luxe Wedding Showcase</h3>
+              <div class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
                   <span>October 18, 2025</span>
                 </p>
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-location-dot text-meetco-purple"></i>
-                  <span>PARKROYAL Ballroom, Singapore</span>
+                  <span>Luminar Technology, Thrissur</span>
                 </p>
               </div>
             </div>
@@ -587,22 +790,22 @@
         </div>
 
         <!-- Card 2: Birthday Celebration -->
-        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 dark:border-white/10 flex flex-col justify-between">
           <div>
             <div class="relative h-52 overflow-hidden">
               <img src="assets/img/about/img03.jpg" alt="Birthday Celebration" class="w-full h-full object-cover">
               <span class="absolute top-3 left-3 bg-meetco-purple text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Birthday</span>
             </div>
             <div class="p-5">
-              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Golden Jubilee Birthday Celebration</h3>
-              <div class="space-y-1.5 text-xs text-slate-500">
+              <h3 class="text-meetco-navy dark:text-white font-bold text-lg font-heading mb-2">Golden Jubilee Birthday Celebration</h3>
+              <div class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
                   <span>November 05, 2025</span>
                 </p>
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-location-dot text-meetco-purple"></i>
-                  <span>Skyline Terrace, Melbourne</span>
+                  <span>Luminar Technology, Thrissur</span>
                 </p>
               </div>
             </div>
@@ -615,22 +818,22 @@
         </div>
 
         <!-- Card 3: Photography Event -->
-        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 dark:border-white/10 flex flex-col justify-between">
           <div>
             <div class="relative h-52 overflow-hidden">
               <img src="assets/img/about/img04.jpg" alt="Photography Event" class="w-full h-full object-cover">
               <span class="absolute top-3 left-3 bg-meetco-cyan text-meetco-navy text-xs font-extrabold px-3 py-1 rounded-full uppercase">Photography</span>
             </div>
             <div class="p-5">
-              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Fashion & Portrait Photography Gala</h3>
-              <div class="space-y-1.5 text-xs text-slate-500">
+              <h3 class="text-meetco-navy dark:text-white font-bold text-lg font-heading mb-2">Fashion & Portrait Photography Gala</h3>
+              <div class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
                   <span>December 12, 2025</span>
                 </p>
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-location-dot text-meetco-purple"></i>
-                  <span>Metropolitan Studio, New York</span>
+                  <span>Luminar Technology, Thrissur</span>
                 </p>
               </div>
             </div>
@@ -643,22 +846,22 @@
         </div>
 
         <!-- Card 4: Corporate Meet -->
-        <div class="bg-meetco-light/80 rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+        <div class="bg-meetco-light/80 dark:bg-[#161245] rounded-2xl overflow-hidden shadow-sm hover-lift border border-slate-200 dark:border-white/10 flex flex-col justify-between">
           <div>
             <div class="relative h-52 overflow-hidden">
               <img src="assets/img/about/img02.jpg" alt="Corporate Meet" class="w-full h-full object-cover">
               <span class="absolute top-3 left-3 bg-emerald-500 text-white text-xs font-extrabold px-3 py-1 rounded-full uppercase">Corporate</span>
             </div>
             <div class="p-5">
-              <h3 class="text-meetco-navy font-bold text-lg font-heading mb-2">Future of Business Corporate Meet</h3>
-              <div class="space-y-1.5 text-xs text-slate-500">
+              <h3 class="text-meetco-navy dark:text-white font-bold text-lg font-heading mb-2">Future of Business Corporate Meet</h3>
+              <div class="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-calendar-days text-meetco-purple"></i>
                   <span>January 22, 2026</span>
                 </p>
                 <p class="flex items-center gap-2">
                   <i class="fa-solid fa-location-dot text-meetco-purple"></i>
-                  <span>Sands Expo Center, Singapore</span>
+                  <span>Luminar Technology, Thrissur</span>
                 </p>
               </div>
             </div>
@@ -689,10 +892,10 @@
         </p>
       </div>
 
-      <!-- 5 Services Cards (Balanced Layout: 3 top row, 2 centered bottom row) -->
+      <!-- Service cards -->
       <div id="services-grid" class="space-y-6 sm:space-y-8">
         
-        <!-- Top Row: 3 Services Cards -->
+        <!-- Row 1 -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           
           <!-- Service 1: Birthday Party Planning -->
@@ -811,7 +1014,7 @@
 
         </div>
 
-        <!-- Bottom Row: 2 Centered Services Cards -->
+        <!-- Row 2 -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
           
           <!-- Service 4: Corporate Event Management -->
@@ -898,15 +1101,15 @@
   </section>
 
   <!-- Pricing Packages Section -->
-  <section id="pricing-section" class="py-20 sm:py-24 bg-meetco-light">
+  <section id="pricing-section" class="py-20 sm:py-24 bg-meetco-light dark:bg-[#0f0c36] transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Transparent Rates</span>
-        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+        <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-2">Transparent Rates</span>
+        <h2 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
           Event Pricing Packages
         </h2>
-        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+        <p class="text-meetco-body dark:text-slate-300 mt-3 text-sm sm:text-base">
           Choose a comprehensive package or customize your booking request.
         </p>
       </div>
@@ -914,18 +1117,18 @@
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
         
         <!-- Silver Package -->
-        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+        <div class="bg-white dark:bg-[#161245] rounded-3xl p-8 sm:p-10 shadow-sm dark:shadow-none hover-lift border border-slate-200 dark:border-white/10 flex flex-col justify-between transition-colors">
           <div>
             <span class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Essential</span>
-            <h3 class="text-2xl font-black font-heading text-meetco-navy mt-1">Silver Package</h3>
+            <h3 class="text-2xl font-black font-heading text-meetco-navy dark:text-white mt-1">Silver Package</h3>
             <div class="my-6">
-              <span class="text-4xl sm:text-5xl font-black text-meetco-navy font-heading">$800</span>
+              <span class="text-4xl sm:text-5xl font-black text-meetco-navy dark:text-white font-heading">₹35,000</span>
               <span class="text-xs text-slate-400 font-semibold">/ event base</span>
             </div>
-            <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
               Perfect for birthday parties, private workshops, and intimate family gatherings up to 50 guests.
             </p>
-            <ul class="space-y-3 text-xs text-slate-600 mb-8">
+            <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Event Planner Consultation</li>
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Standard Sound & Lighting Setup</li>
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Up to 4 Hours Event Coverage</li>
@@ -933,13 +1136,13 @@
               <li class="flex items-center gap-3 text-slate-400"><i class="fa-solid fa-xmark"></i> Dedicated Day-of Concierge</li>
             </ul>
           </div>
-          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl border-2 border-meetco-navy text-meetco-navy hover:bg-meetco-navy hover:text-white font-bold text-xs uppercase tracking-wider transition-colors">
+          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl border-2 border-meetco-navy dark:border-meetco-yellow text-meetco-navy dark:text-meetco-yellow hover:bg-meetco-navy dark:hover:bg-meetco-yellow hover:text-white dark:hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
             Choose Silver
           </a>
         </div>
 
         <!-- Gold Package (Featured) -->
-        <div class="bg-meetco-navy text-white rounded-3xl p-8 sm:p-10 shadow-2xl relative border-2 border-meetco-yellow flex flex-col justify-between transform lg:-translate-y-3">
+        <div class="bg-meetco-navy dark:bg-[#1b1754] text-white rounded-3xl p-8 sm:p-10 shadow-2xl relative border-2 border-meetco-yellow flex flex-col justify-between transform lg:-translate-y-3">
           <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-meetco-yellow text-meetco-navy font-black text-[11px] uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md">
             Most Popular
           </div>
@@ -947,7 +1150,7 @@
             <span class="text-xs font-extrabold uppercase tracking-widest text-meetco-yellow">Premium Choice</span>
             <h3 class="text-2xl font-black font-heading text-white mt-1">Gold Package</h3>
             <div class="my-6">
-              <span class="text-4xl sm:text-5xl font-black text-meetco-yellow font-heading">$1,800</span>
+              <span class="text-4xl sm:text-5xl font-black text-meetco-yellow font-heading">₹75,000</span>
               <span class="text-xs text-white/70 font-semibold">/ event base</span>
             </div>
             <p class="text-xs text-white/80 mb-6 leading-relaxed">
@@ -967,18 +1170,18 @@
         </div>
 
         <!-- Platinum Package -->
-        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-sm hover-lift border border-slate-200 flex flex-col justify-between">
+        <div class="bg-white dark:bg-[#161245] rounded-3xl p-8 sm:p-10 shadow-sm dark:shadow-none hover-lift border border-slate-200 dark:border-white/10 flex flex-col justify-between transition-colors">
           <div>
             <span class="text-xs font-extrabold uppercase tracking-widest text-slate-400">Bespoke Royal</span>
-            <h3 class="text-2xl font-black font-heading text-meetco-navy mt-1">Platinum Package</h3>
+            <h3 class="text-2xl font-black font-heading text-meetco-navy dark:text-white mt-1">Platinum Package</h3>
             <div class="my-6">
-              <span class="text-4xl sm:text-5xl font-black text-meetco-navy font-heading">$3,500</span>
+              <span class="text-4xl sm:text-5xl font-black text-meetco-navy dark:text-white font-heading">₹1,50,000</span>
               <span class="text-xs text-slate-400 font-semibold">/ event base</span>
             </div>
-            <p class="text-xs text-slate-500 mb-6 leading-relaxed">
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
               Ultra-luxury destination weddings, international summits, and large festivals with unlimited guests.
             </p>
-            <ul class="space-y-3 text-xs text-slate-600 mb-8">
+            <ul class="space-y-3 text-xs text-slate-600 dark:text-slate-300 mb-8">
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Full Executive Team on Ground</li>
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> Multi-Day Itinerary & Airport Concierge</li>
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> International Celebrity Artist Booking</li>
@@ -986,7 +1189,7 @@
               <li class="flex items-center gap-3"><i class="fa-solid fa-check text-emerald-500"></i> VIP Security & Luxury Transportation</li>
             </ul>
           </div>
-          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl border-2 border-meetco-navy text-meetco-navy hover:bg-meetco-navy hover:text-white font-bold text-xs uppercase tracking-wider transition-colors">
+          <a href="booking.html" class="block text-center w-full py-3.5 rounded-xl border-2 border-meetco-navy dark:border-meetco-yellow text-meetco-navy dark:text-meetco-yellow hover:bg-meetco-navy dark:hover:bg-meetco-yellow hover:text-white dark:hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
             Choose Platinum
           </a>
         </div>
@@ -997,22 +1200,22 @@
   </section>
 
   <!-- Testimonials Section -->
-  <section id="testimonials-section" class="py-28 bg-white overflow-hidden">
+  <section id="testimonials-section" class="py-28 bg-white dark:bg-[#0c0a2a] overflow-hidden transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
       
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Our Real Reviews</span>
-          <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+          <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-2">Our Real Reviews</span>
+          <h2 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
             What Clients Say About Meetco
           </h2>
         </div>
         
         <div class="flex items-center gap-3">
-          <button id="testimonial-prev" class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-meetco-navy hover:bg-meetco-purple hover:text-white transition-colors" aria-label="Previous">
+          <button id="testimonial-prev" class="w-12 h-12 rounded-full border border-slate-200 dark:border-white/15 flex items-center justify-center text-meetco-navy dark:text-white hover:bg-meetco-purple hover:border-meetco-purple hover:text-white transition-colors" aria-label="Previous">
             <i class="fa-solid fa-arrow-left"></i>
           </button>
-          <button id="testimonial-next" class="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center text-meetco-navy hover:bg-meetco-purple hover:text-white transition-colors" aria-label="Next">
+          <button id="testimonial-next" class="w-12 h-12 rounded-full border border-slate-200 dark:border-white/15 flex items-center justify-center text-meetco-navy dark:text-white hover:bg-meetco-purple hover:border-meetco-purple hover:text-white transition-colors" aria-label="Next">
             <i class="fa-solid fa-arrow-right"></i>
           </button>
         </div>
@@ -1033,14 +1236,14 @@
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               </div>
             </div>
-            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+            <p class="text-meetco-body dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
               "Meetco organized our annual corporate gala seamlessly. Every transition, keynote stage, and dining course was executed with precision. Our board was thoroughly impressed!"
             </p>
           </div>
-          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100 dark:border-white/10">
             <img src="assets/img/avatar/img01.png" alt="Ava Reynolds" class="w-12 h-12 rounded-full object-cover">
             <div>
-              <h4 class="text-meetco-navy font-bold text-sm">Ava Reynolds</h4>
+              <h4 class="text-meetco-navy dark:text-white font-bold text-sm">Ava Reynolds</h4>
               <span class="text-xs text-slate-400">Chief People Officer @ Group M</span>
             </div>
           </div>
@@ -1055,14 +1258,14 @@
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               </div>
             </div>
-            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+            <p class="text-meetco-body dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
               "Our destination wedding was pure magic thanks to Meetco. They managed 200 guests from 8 countries with zero stress. Truly world-class event planners!"
             </p>
           </div>
-          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100 dark:border-white/10">
             <img src="assets/img/avatar/img02.png" alt="Daniel Roberts" class="w-12 h-12 rounded-full object-cover">
             <div>
-              <h4 class="text-meetco-navy font-bold text-sm">Daniel & Sophia Roberts</h4>
+              <h4 class="text-meetco-navy dark:text-white font-bold text-sm">Daniel & Sophia Roberts</h4>
               <span class="text-xs text-slate-400">Private Wedding Clients</span>
             </div>
           </div>
@@ -1077,14 +1280,14 @@
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               </div>
             </div>
-            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+            <p class="text-meetco-body dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
               "The photography and videography team delivered breathtaking 4K footage within 48 hours of our product launch event. Highly recommended."
             </p>
           </div>
-          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100 dark:border-white/10">
             <img src="assets/img/avatar/img03.png" alt="Michael Carter" class="w-12 h-12 rounded-full object-cover">
             <div>
-              <h4 class="text-meetco-navy font-bold text-sm">Michael Carter</h4>
+              <h4 class="text-meetco-navy dark:text-white font-bold text-sm">Michael Carter</h4>
               <span class="text-xs text-slate-400">Senior Director @ KCS IT</span>
             </div>
           </div>
@@ -1099,14 +1302,14 @@
                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
               </div>
             </div>
-            <p class="text-meetco-body text-sm sm:text-base leading-relaxed mb-6">
+            <p class="text-meetco-body dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
               "Our daughter's sweet 16 party was the talk of the town! The decor, DJ, custom mocktail bar, and lighting completely blew everyone away."
             </p>
           </div>
-          <div class="flex items-center gap-4 pt-4 border-t border-slate-100">
+          <div class="flex items-center gap-4 pt-4 border-t border-slate-100 dark:border-white/10">
             <img src="assets/img/avatar/img04.png" alt="Emily Johnson" class="w-12 h-12 rounded-full object-cover">
             <div>
-              <h4 class="text-meetco-navy font-bold text-sm">Emily Johnson</h4>
+              <h4 class="text-meetco-navy dark:text-white font-bold text-sm">Emily Johnson</h4>
               <span class="text-xs text-slate-400">Birthday Party Client</span>
             </div>
           </div>
@@ -1117,17 +1320,17 @@
   </section>
 
   <!-- FAQ Section -->
-  <section id="faq-section" class="py-28 bg-meetco-light">
+  <section id="faq-section" class="py-28 bg-meetco-light dark:bg-[#0f0c36] transition-colors">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center mb-16">
-        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Got Questions?</span>
-        <h2 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+        <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-2">Got Questions?</span>
+        <h2 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
           Frequently Asked Questions
         </h2>
       </div>
 
-      <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-100 divide-y divide-slate-100">
+      <div class="bg-white dark:bg-[#161245] rounded-3xl p-8 sm:p-12 shadow-sm dark:shadow-none border border-slate-100 dark:border-white/10 divide-y divide-slate-100 dark:divide-white/10 transition-colors">
         
         <!-- FAQ 1 -->
         <div class="faq-item active">
@@ -1171,12 +1374,121 @@
         <!-- FAQ 4 -->
         <div class="faq-item">
           <div class="faq-header">
-            <span>Do you manage destination events outside Singapore?</span>
+            <span>Do you manage destination events outside Thrissur?</span>
             <div class="faq-icon"><i class="fa-solid fa-chevron-down"></i></div>
           </div>
           <div class="faq-body">
             <p>
               Yes, our team operates worldwide! We have coordinated luxury destination weddings and international summits in Bali, Dubai, Paris, New York, and Melbourne.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Inquiry and review section -->
+  <section id="inquiry-review-section" class="py-16 sm:py-20 bg-white dark:bg-[#0c0a2a] border-t border-slate-100 dark:border-white/10 transition-colors">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-1">Quick Inquiries & Reviews</span>
+        <h2 class="text-meetco-navy dark:text-white text-2xl sm:text-3xl font-black font-heading leading-tight">
+          Ask a Question or Leave a Review
+        </h2>
+        <p class="text-meetco-body dark:text-slate-300 mt-2 text-xs sm:text-sm">
+          Have a quick question or want to share your event feedback? Drop us a note below.
+        </p>
+      </div>
+
+      <!-- Review form -->
+      <div class="bg-white dark:bg-[#161245] rounded-2xl p-6 sm:p-8 shadow-[0_4px_25px_rgba(0,0,0,0.06)] dark:shadow-none border border-slate-200 dark:border-white/10 transition-colors">
+        
+        <div class="flex items-center justify-between pb-5 mb-5 border-b border-slate-100 dark:border-white/10">
+          <div class="flex items-center gap-2.5 text-meetco-navy dark:text-white font-bold text-sm sm:text-base">
+            <i class="fa-solid fa-comments text-meetco-purple dark:text-meetco-cyan"></i>
+            <span>Send to Meetco</span>
+          </div>
+
+          <!-- Tab switcher -->
+          <div class="inline-flex p-1 bg-slate-100 dark:bg-white/5 rounded-xl">
+            <button type="button" id="tab-type-question" class="px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all bg-meetco-purple text-white shadow-sm cursor-pointer">
+              <i class="fa-solid fa-circle-question mr-1"></i>Question
+            </button>
+            <button type="button" id="tab-type-review" class="px-3.5 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all text-meetco-navy dark:text-slate-300 hover:text-meetco-purple dark:hover:text-meetco-yellow cursor-pointer">
+              <i class="fa-solid fa-star mr-1"></i>Review
+            </button>
+          </div>
+        </div>
+
+        <form id="faq-review-form" class="space-y-4">
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Full Name -->
+            <div>
+              <label for="feedback-name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Name*</label>
+              <div class="relative">
+                <i class="fa-solid fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" id="feedback-name" required placeholder="Your Name" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-9 pr-3 py-2.5 text-xs text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
+              </div>
+            </div>
+
+            <!-- Email Address -->
+            <div>
+              <label for="feedback-email" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Email*</label>
+              <div class="relative">
+                <i class="fa-solid fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="email" id="feedback-email" required placeholder="you@example.com" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-9 pr-3 py-2.5 text-xs text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Star rating -->
+          <div id="rating-container" class="hidden p-3 rounded-xl bg-meetco-yellow/15 dark:bg-meetco-yellow/10 border border-meetco-yellow/40 transition-all">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-meetco-navy dark:text-white">Your Rating:</span>
+              <div class="flex items-center gap-1.5" id="star-rating-group">
+                <button type="button" class="star-btn text-xl text-meetco-yellow hover:scale-110 transition-transform cursor-pointer" data-rating="1" aria-label="1 star"><i class="fa-solid fa-star"></i></button>
+                <button type="button" class="star-btn text-xl text-meetco-yellow hover:scale-110 transition-transform cursor-pointer" data-rating="2" aria-label="2 stars"><i class="fa-solid fa-star"></i></button>
+                <button type="button" class="star-btn text-xl text-meetco-yellow hover:scale-110 transition-transform cursor-pointer" data-rating="3" aria-label="3 stars"><i class="fa-solid fa-star"></i></button>
+                <button type="button" class="star-btn text-xl text-meetco-yellow hover:scale-110 transition-transform cursor-pointer" data-rating="4" aria-label="4 stars"><i class="fa-solid fa-star"></i></button>
+                <button type="button" class="star-btn text-xl text-meetco-yellow hover:scale-110 transition-transform cursor-pointer" data-rating="5" aria-label="5 stars"><i class="fa-solid fa-star"></i></button>
+                <span id="rating-text" class="text-xs font-bold text-meetco-purple dark:text-meetco-yellow ml-2">5 Stars (Outstanding)</span>
+              </div>
+            </div>
+            <input type="hidden" id="feedback-rating" value="5">
+          </div>
+
+          <!-- Message / Review Textarea -->
+          <div>
+            <label for="feedback-message" id="feedback-message-label" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5">Your Question*</label>
+            <textarea id="feedback-message" rows="3" required placeholder="Type your question here..." class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl p-3 text-xs text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-1">
+            <button type="submit" id="feedback-submit-btn" class="w-full py-3 rounded-xl bg-meetco-purple text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer">
+              <span id="feedback-submit-text">Submit Question</span>
+              <i class="fa-solid fa-paper-plane text-xs"></i>
+            </button>
+          </div>
+
+        </form>
+
+        <!-- Success alert -->
+        <div id="feedback-success-alert" class="hidden mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm">
+            <i class="fa-solid fa-check"></i>
+          </div>
+          <div>
+            <h4 id="success-alert-title" class="font-bold text-emerald-800 text-xs">Submitted Successfully!</h4>
+            <p id="success-alert-desc" class="text-[11px] text-emerald-700 leading-snug">
+              Thank you! Our coordinators will respond to your email promptly.
             </p>
           </div>
         </div>
@@ -1204,7 +1516,7 @@
         </ul>
       </div>
 
-      <!-- 3 Contact Pills -->
+      <!-- Contact info -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 py-14 border-b border-white/10">
         
         <div class="flex items-center gap-4">
@@ -1223,7 +1535,7 @@
           </div>
           <div>
             <span class="text-xs uppercase tracking-wider text-slate-400 block font-semibold">Call Us</span>
-            <a href="tel:+651304528597" class="text-base font-bold text-white hover:text-meetco-yellow transition-colors">+65 130 452 8597</a>
+            <a href="tel:+918547228913" class="text-base font-bold text-white hover:text-meetco-yellow transition-colors">+91 8547228913</a>
           </div>
         </div>
 
@@ -1233,20 +1545,20 @@
           </div>
           <div>
             <span class="text-xs uppercase tracking-wider text-slate-400 block font-semibold">Main Office</span>
-            <span class="text-base font-bold text-white">Parkroyal, Hotel Singapore</span>
+            <span class="text-base font-bold text-white">Luminar Technology, Thrissur</span>
           </div>
         </div>
 
       </div>
 
-      <!-- Giant Brand Logo -->
+      <!-- Footer brand banner -->
       <div class="py-12 text-center">
-        <img src="assets/img/logo/footer-logo.svg" alt="MEETCO" class="max-w-xs sm:max-w-md mx-auto h-auto opacity-90">
+        <img src="assets/img/logo/footer-logo.svg" alt="MEETCO" class="max-w-xs sm:max-w-md mx-auto h-auto opacity-100">
       </div>
 
-      <!-- Copyright & Social Links -->
+      <!-- Footer Info & Social Links -->
       <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-        <p>Copyright © 2025 <strong class="text-white">MEETCO EVENTS</strong>. All rights reserved. Submission Date: 05/09/2026.</p>
+        <p><strong class="text-white">MEETCO EVENTS</strong>. Submission Date: 19/09/2026.</p>
         <div class="flex items-center gap-4">
           <span>Follow Us:</span>
           <a href="#" class="w-8 h-8 rounded-full bg-white/5 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Facebook">

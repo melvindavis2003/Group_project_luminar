@@ -11,6 +11,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -32,6 +33,15 @@
     }
   </script>
 
+  <!-- Theme script -->
+  <script>
+    if (localStorage.getItem('meetco_theme') === 'dark' || (!('meetco_theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
   <!-- Google Fonts & Font Awesome 6 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,9 +54,9 @@
   <!-- GSAP 3 & ScrollTrigger CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
-<body class="bg-white text-meetco-body antialiased selection:bg-meetco-yellow selection:text-meetco-navy relative min-h-screen flex flex-col justify-between">
+<body class="bg-white dark:bg-[#0c0a2a] text-meetco-body dark:text-slate-300 antialiased selection:bg-meetco-yellow selection:text-meetco-navy relative min-h-screen flex flex-col justify-between transition-colors">
 
-  <!-- Mouse Tracking Cursor (Tailwind CSS & GSAP) -->
+  <!-- Custom cursor -->
   <div id="cursor-dot" class="fixed top-0 left-0 w-2.5 h-2.5 bg-meetco-yellow rounded-full pointer-events-none z-[99999] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 hidden lg:block"></div>
   <div id="cursor-ring" class="fixed top-0 left-0 w-9 h-9 rounded-full border-2 border-meetco-yellow/80 pointer-events-none z-[99998] -translate-x-1/2 -translate-y-1/2 opacity-0 transition-[opacity,border-color,background-color] duration-300 hidden lg:block"></div>
 
@@ -60,9 +70,14 @@
         <a href="index.html">
           <img src="assets/img/logo/logo-two.svg" alt="Meetco Logo" class="h-9 w-auto">
         </a>
-        <button id="close-sidebar-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Close Sidebar">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
+        <div class="flex items-center gap-2">
+          <button class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button id="close-sidebar-btn" class="w-10 h-10 rounded-full bg-white/10 hover:bg-meetco-yellow hover:text-meetco-navy transition-colors flex items-center justify-center text-white" aria-label="Close Sidebar">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
       </div>
 
       <p class="text-white/80 text-base leading-relaxed mb-8">
@@ -88,11 +103,11 @@
         <ul class="space-y-3.5 text-sm text-white/80">
           <li class="flex items-center gap-3">
             <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
-            <span>PARKROYAL, Hotel Singapore & Melbone St, NY</span>
+            <span>Luminar Technology, Thrissur</span>
           </li>
           <li class="flex items-center gap-3">
             <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
-            <a href="tel:+8180012345678" class="hover:text-meetco-yellow transition-colors">+81 800 123 456 78</a>
+            <a href="tel:+918547228913" class="hover:text-meetco-yellow transition-colors">+91 8547228913</a>
           </li>
           <li class="flex items-center gap-3">
             <img src="assets/img/icon/star-icon02.svg" alt="" class="w-4 h-4 flex-shrink-0">
@@ -113,14 +128,14 @@
     </div>
   </aside>
 
-  <!-- Header Navigation - Authentic Meetco Floating Card Navbar -->
+  <!-- Header navigation -->
   <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 pt-5 sm:pt-7 pb-2 pointer-events-none">
     <div class="w-full max-w-[96%] xl:max-w-[1780px] 2xl:max-w-[1840px] mx-auto px-2 sm:px-4 pointer-events-auto">
       <div class="meetco-header-wrap px-6 sm:px-10 lg:px-12 py-3.5 sm:py-4 flex items-center justify-between">
         
         <!-- Logo -->
         <a href="index.html" class="flex items-center flex-shrink-0">
-          <img src="assets/img/logo/logo.svg" alt="Meetco Logo" class="h-8 sm:h-9 w-auto">
+          <img src="assets/img/logo/logo.svg" alt="Meetco Logo" class="meetco-header-logo h-8 sm:h-9 w-auto">
         </a>
 
         <!-- Desktop Navigation Menu -->
@@ -148,20 +163,25 @@
           </a>
         </nav>
 
-        <!-- Right Tools: Auth & Meetco Yellow Offcanvas Button -->
-        <div class="flex items-center gap-3 sm:gap-4">
+        <!-- Right nav items -->
+        <div class="flex items-center gap-2 sm:gap-3">
           
+          <!-- Theme Toggle Button -->
+          <button class="theme-toggle-btn" aria-label="Toggle Dark Mode">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+
           <!-- Auth Links -->
           <div class="hidden sm:flex items-center gap-2">
-            <a href="login.html" class="text-meetco-navy text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg hover:text-meetco-purple transition-colors">
+            <a href="login.html" class="text-meetco-navy dark:text-white text-xs font-bold uppercase tracking-wider px-3 py-2 rounded-lg hover:text-meetco-purple dark:hover:text-meetco-yellow transition-colors">
               Login
             </a>
-            <a href="register.html" class="bg-meetco-purple text-white text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-meetco-navy transition-colors shadow-sm">
+            <a href="register.html" class="bg-meetco-purple dark:bg-meetco-yellow text-white dark:text-meetco-navy text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full hover:bg-meetco-navy dark:hover:bg-white transition-colors shadow-sm">
               Register
             </a>
           </div>
 
-          <!-- Iconic Meetco Circular Offcanvas Trigger -->
+          <!-- Sidebar trigger -->
           <button class="open-sidebar-btn w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-meetco-yellow hover:bg-meetco-cyan transition-colors flex items-center justify-center shadow-md flex-shrink-0" aria-label="Open Sidebar Menu">
             <svg width="22" height="22" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M23.8333 9.23V4.31166C23.8333 2.78416 23.14 2.16666 21.4175 2.16666H17.0408C15.3183 2.16666 14.625 2.78416 14.625 4.31166V9.21916C14.625 10.7575 15.3183 11.3642 17.0408 11.3642H21.4175C23.14 11.375 23.8333 10.7575 23.8333 9.23Z" stroke="#260F8F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -172,7 +192,7 @@
           </button>
 
           <!-- Mobile Hamburger -->
-          <button id="mobile-menu-btn" class="xl:hidden p-2 text-meetco-navy hover:text-meetco-purple focus:outline-none" aria-label="Toggle Navigation Menu">
+          <button id="mobile-menu-btn" class="xl:hidden p-2 text-meetco-navy dark:text-white hover:text-meetco-purple focus:outline-none" aria-label="Toggle Navigation Menu">
             <i class="fa-solid fa-bars text-xl"></i>
           </button>
 
@@ -181,7 +201,7 @@
       </div>
 
       <!-- Mobile Dropdown Menu -->
-      <div id="mobile-menu" class="hidden xl:hidden bg-white rounded-[10px] mt-2 p-5 shadow-2xl border border-slate-200">
+      <div id="mobile-menu" class="hidden xl:hidden bg-white dark:bg-[#131053] rounded-[10px] mt-2 p-5 shadow-2xl border border-slate-200 dark:border-white/10">
         <nav class="flex flex-col space-y-1.5">
           <a href="index.html" class="mobile-nav-link">Home</a>
           <a href="index.html#services-section" class="mobile-nav-link">Services</a>
@@ -190,9 +210,9 @@
           <a href="index.html#pricing-section" class="mobile-nav-link">Pricing Packages</a>
           <a href="booking.html" class="mobile-nav-link active-nav-section">Booking Form</a>
           <a href="contact.html" class="mobile-nav-link">Contact Us</a>
-          <div class="pt-4 border-t border-slate-100 flex gap-3">
-            <a href="login.html" class="flex-1 text-center py-2.5 bg-slate-100 text-meetco-navy rounded-lg font-bold text-sm hover:bg-slate-200 transition-colors">Login</a>
-            <a href="register.html" class="flex-1 text-center py-2.5 bg-meetco-purple text-white rounded-lg font-bold text-sm hover:bg-meetco-navy transition-colors">Register</a>
+          <div class="pt-4 border-t border-slate-100 dark:border-white/10 flex gap-3">
+            <a href="login.html" class="flex-1 text-center py-2.5 bg-slate-100 dark:bg-white/10 text-meetco-navy dark:text-white rounded-lg font-bold text-sm hover:bg-slate-200 dark:hover:bg-white/20 transition-colors">Login</a>
+            <a href="register.html" class="flex-1 text-center py-2.5 bg-meetco-purple dark:bg-meetco-yellow text-white dark:text-meetco-navy rounded-lg font-bold text-sm hover:bg-meetco-navy dark:hover:bg-white transition-colors">Register</a>
           </div>
         </nav>
       </div>
@@ -201,26 +221,26 @@
   </header>
 
   <!-- Main Booking Content -->
-  <main class="pt-36 sm:pt-40 pb-24 flex-grow bg-meetco-light">
+  <main class="pt-36 sm:pt-40 pb-24 flex-grow bg-meetco-light dark:bg-[#0c0a2a] transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Page Title -->
       <div class="text-center max-w-3xl mx-auto mb-12">
-        <span class="text-meetco-purple text-xs font-bold uppercase tracking-widest block mb-2">Reserve Your Date</span>
-        <h1 class="text-meetco-navy text-3xl sm:text-5xl font-black font-heading leading-tight">
+        <span class="text-meetco-purple dark:text-meetco-cyan text-xs font-bold uppercase tracking-widest block mb-2">Reserve Your Date</span>
+        <h1 class="text-meetco-navy dark:text-white text-3xl sm:text-5xl font-black font-heading leading-tight">
           Event Booking Request
         </h1>
-        <p class="text-meetco-body mt-3 text-sm sm:text-base">
+        <p class="text-meetco-body dark:text-slate-300 mt-3 text-sm sm:text-base">
           Fill out your event specifications below. Our dedicated event coordinator will verify dates, prepare estimates, and contact you promptly.
         </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- Booking Form (8 Columns) -->
-        <div class="lg:col-span-8 bg-white rounded-[10px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-slate-200">
-          <h2 class="text-2xl font-bold font-heading text-meetco-navy mb-6 pb-4 border-b border-slate-100 flex items-center gap-3">
-            <i class="fa-solid fa-calendar-check text-meetco-purple"></i>
+        <!-- Booking form -->
+        <div class="lg:col-span-8 bg-white dark:bg-[#161245] rounded-[10px] p-8 sm:p-10 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-none border border-slate-200 dark:border-white/10 transition-colors">
+          <h2 class="text-2xl font-bold font-heading text-meetco-navy dark:text-white mb-6 pb-4 border-b border-slate-100 dark:border-white/10 flex items-center gap-3">
+            <i class="fa-solid fa-calendar-check text-meetco-purple dark:text-meetco-cyan"></i>
             <span>Event Reservation Form</span>
           </h2>
 
@@ -228,21 +248,21 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               
-              <!-- 1. Full Name -->
+              <!-- Name -->
               <div>
-                <label for="full-name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Full Name*</label>
+                <label for="full-name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Full Name*</label>
                 <div class="relative">
                   <i class="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                  <input type="text" id="full-name" required placeholder="John Doe" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+                  <input type="text" id="full-name" required placeholder="Admin" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
                 </div>
               </div>
 
-              <!-- 2. Email Address -->
+              <!-- Email -->
               <div>
-                <label for="email-address" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Email Address*</label>
+                <label for="email-address" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Email Address*</label>
                 <div class="relative">
                   <i class="fa-solid fa-envelope absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                  <input type="email" id="email-address" required placeholder="john@example.com" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+                  <input type="email" id="email-address" required placeholder="admin@example.com" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
                 </div>
               </div>
 
@@ -250,21 +270,21 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               
-              <!-- 3. Phone Number -->
+              <!-- Phone -->
               <div>
-                <label for="phone-number" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Phone Number*</label>
+                <label for="phone-number" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Phone Number*</label>
                 <div class="relative">
                   <i class="fa-solid fa-phone absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                  <input type="tel" id="phone-number" required placeholder="+1 234 567 890" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+                  <input type="tel" id="phone-number" required placeholder="+91 8547228913" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
                 </div>
               </div>
 
-              <!-- 4. Event Date -->
+              <!-- Date -->
               <div>
-                <label for="event-date" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Event Date*</label>
+                <label for="event-date" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Event Date*</label>
                 <div class="relative">
                   <i class="fa-solid fa-calendar-day absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                  <input type="date" id="event-date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+                  <input type="date" id="event-date" required class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy dark:text-white focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
                 </div>
               </div>
 
@@ -272,51 +292,51 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
               
-              <!-- 5. Event Type Dropdown (Exact 5 types from brief) -->
+              <!-- Event type -->
               <div>
-                <label for="event-type" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Event Type*</label>
+                <label for="event-type" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Event Type*</label>
                 <div class="relative">
                   <i class="fa-solid fa-tag absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                  <select id="event-type" required class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-8 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20 appearance-none">
-                    <option value="Wedding" selected>Wedding</option>
-                    <option value="Birthday Party">Birthday Party</option>
-                    <option value="Photography Session">Photography Session</option>
-                    <option value="Corporate Event">Corporate Event</option>
-                    <option value="Workshop/Seminar">Workshop/Seminar</option>
+                  <select id="event-type" required class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-8 py-3.5 text-sm text-meetco-navy dark:text-white focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20 appearance-none">
+                    <option value="Wedding" selected class="dark:bg-[#161245]">Wedding</option>
+                    <option value="Birthday Party" class="dark:bg-[#161245]">Birthday Party</option>
+                    <option value="Photography Session" class="dark:bg-[#161245]">Photography Session</option>
+                    <option value="Corporate Event" class="dark:bg-[#161245]">Corporate Event</option>
+                    <option value="Workshop/Seminar" class="dark:bg-[#161245]">Workshop/Seminar</option>
                   </select>
                   <i class="fa-solid fa-chevron-down absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs pointer-events-none"></i>
                 </div>
               </div>
 
-              <!-- 6. Number of Guests -->
+              <!-- Guest count -->
               <div>
-                <label for="guest-count" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Number of Guests*</label>
+                <label for="guest-count" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Number of Guests*</label>
                 <div class="relative">
                   <i class="fa-solid fa-users absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                  <input type="number" id="guest-count" required min="10" max="5000" value="75" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+                  <input type="number" id="guest-count" required min="10" max="5000" value="75" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy dark:text-white focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
                 </div>
               </div>
 
             </div>
 
-            <!-- 7. Event Location -->
+            <!-- Location -->
             <div>
-              <label for="event-location" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Event Location / Preferred Venue*</label>
+              <label for="event-location" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Event Location / Preferred Venue*</label>
               <div class="relative">
                 <i class="fa-solid fa-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                <input type="text" id="event-location" required placeholder="e.g. PARKROYAL Grand Ballroom, Singapore / Custom Beachfront" class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20">
+                <input type="text" id="event-location" required value="Luminar Technology, Thrissur" placeholder="Luminar Technology, Thrissur" class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl pl-11 pr-4 py-3.5 text-sm text-meetco-navy dark:text-white focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20">
               </div>
             </div>
 
-            <!-- 8. Additional Notes -->
+            <!-- Notes -->
             <div>
-              <label for="additional-notes" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Additional Notes / Special Requests</label>
-              <textarea id="additional-notes" rows="4" placeholder="Tell us about special themes, dietary preferences, lighting requirements, or live artist requests..." class="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 text-sm text-meetco-navy focus:outline-none focus:border-meetco-purple focus:ring-2 focus:ring-meetco-purple/20"></textarea>
+              <label for="additional-notes" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-2">Additional Notes / Special Requests</label>
+              <textarea id="additional-notes" rows="4" placeholder="Tell us about special themes, dietary preferences, lighting requirements, or live artist requests..." class="w-full bg-slate-50 dark:bg-[#201a61] border border-slate-200 dark:border-white/15 rounded-xl p-4 text-sm text-meetco-navy dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-meetco-purple dark:focus:border-meetco-yellow focus:ring-2 focus:ring-meetco-purple/20"></textarea>
             </div>
 
             <!-- Submit Booking Button -->
             <div class="pt-4">
-              <button type="submit" class="w-full py-4 rounded-xl bg-meetco-purple text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-xl flex items-center justify-center gap-3">
+              <button type="submit" class="w-full py-4 rounded-xl bg-meetco-purple dark:bg-meetco-yellow text-white dark:text-meetco-navy hover:bg-meetco-yellow hover:text-meetco-navy dark:hover:bg-white font-bold text-sm uppercase tracking-wider transition-all duration-300 shadow-xl flex items-center justify-center gap-3 cursor-pointer">
                 <span>Submit Booking Request</span>
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
@@ -325,7 +345,7 @@
           </form>
         </div>
 
-        <!-- Real-Time Booking Summary Sidebar (4 Columns) -->
+        <!-- Booking summary -->
         <div class="lg:col-span-4 space-y-6">
           
           <div class="bg-[#131053] text-white rounded-[10px] p-6 sm:p-8 shadow-[0_10px_30px_rgba(0,0,0,0.15)] border border-white/10">
@@ -357,7 +377,7 @@
 
               <div class="pt-4 flex justify-between items-baseline">
                 <span class="text-xs uppercase font-bold text-white/80">Estimated Budget:</span>
-                <span id="summary-total" class="text-3xl font-black text-meetco-yellow font-heading">$5,875</span>
+                <span id="summary-total" class="text-3xl font-black text-meetco-yellow font-heading">₹1,25,000</span>
               </div>
             </div>
 
@@ -367,14 +387,14 @@
           </div>
 
           <!-- Assistance Card -->
-          <div class="bg-white rounded-[10px] p-6 border border-slate-200 shadow-[0_10px_30px_rgba(0,0,0,0.05)]">
-            <h4 class="text-base font-bold font-heading text-meetco-navy mb-2">Need Immediate Assistance?</h4>
-            <p class="text-xs text-slate-500 mb-4">
+          <div class="bg-white dark:bg-[#161245] rounded-[10px] p-6 border border-slate-200 dark:border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.05)] dark:shadow-none transition-colors">
+            <h4 class="text-base font-bold font-heading text-meetco-navy dark:text-white mb-2">Need Immediate Assistance?</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
               Call our executive booking desk for emergency bookings or VIP accommodations.
             </p>
-            <a href="tel:+651304528597" class="flex items-center gap-3 text-sm font-bold text-meetco-purple hover:underline">
+            <a href="tel:+918547228913" class="flex items-center gap-3 text-sm font-bold text-meetco-purple dark:text-meetco-yellow hover:underline">
               <i class="fa-solid fa-phone"></i>
-              <span>+65 130 452 8597</span>
+              <span>+91 8547228913</span>
             </a>
           </div>
 
@@ -387,15 +407,15 @@
 
   <!-- Confirmation Modal -->
   <div id="booking-confirmation-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="modal-card bg-white rounded-[10px] p-8 max-w-md w-full text-center shadow-2xl border border-slate-200">
+    <div class="modal-card bg-white dark:bg-[#161245] rounded-[10px] p-8 max-w-md w-full text-center shadow-2xl border border-slate-200 dark:border-white/10 transition-colors">
       <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-4">
         <i class="fa-solid fa-check"></i>
       </div>
-      <h3 class="text-2xl font-black font-heading text-meetco-navy mb-2">Booking Submitted!</h3>
-      <p class="text-xs sm:text-sm text-slate-500 leading-relaxed mb-6">
+      <h3 class="text-2xl font-black font-heading text-meetco-navy dark:text-white mb-2">Booking Submitted!</h3>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
         Thank you for reserving your event with Meetco. A confirmation receipt and itinerary blueprint have been dispatched to your email. Our coordinator will reach out shortly.
       </p>
-      <button id="close-modal-btn" class="w-full py-3.5 rounded-[10px] bg-meetco-navy text-white hover:bg-meetco-yellow hover:text-meetco-navy font-bold text-xs uppercase tracking-wider transition-colors">
+      <button id="close-modal-btn" class="w-full py-3.5 rounded-[10px] bg-meetco-navy dark:bg-meetco-yellow text-white dark:text-meetco-navy hover:bg-meetco-yellow hover:text-meetco-navy dark:hover:bg-white font-bold text-xs uppercase tracking-wider transition-colors cursor-pointer">
         Got It, Return to Page
       </button>
     </div>
@@ -405,7 +425,7 @@
   <footer class="bg-[#131053] text-white pt-16 pb-10 border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 pb-8 border-b border-white/10">
-        <p>Copyright © 2025 <strong class="text-white">MEETCO EVENTS</strong>. All rights reserved.</p>
+        <p><strong class="text-white">MEETCO EVENTS</strong></p>
         <div class="flex gap-6">
           <a href="index.html" class="hover:text-meetco-yellow">Home</a>
           <a href="booking.html" class="hover:text-meetco-yellow">Booking</a>
@@ -413,7 +433,7 @@
         </div>
       </div>
       <div class="pt-6 text-center text-xs text-slate-500">
-        Submission Date: 05/09/2026. Event Management Booking Website.
+        Submission Date: 19/09/2026. Event Management Booking Website.
       </div>
     </div>
   </footer>
