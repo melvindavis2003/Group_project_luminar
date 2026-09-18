@@ -1,13 +1,16 @@
 # Meetco Events - Event Management Booking Platform
 
+🔗 **Online Build:** [View the live website](https://melvindavis2003.github.io/Group_project_luminar/)
+
 A modern, responsive, animation-rich **Event Management Booking Website** built with **HTML5**, **CSS3**, **Tailwind CSS**, and **GSAP 3** animations, styled with the premium **Meetco** design system.
 
 ---
 
 ## 📌 Project Overview
 
-- **Objective**: Design and develop a comprehensive Event Management Booking Website allowing clients to explore event services, view upcoming events, inspect gallery showcases, register, log in, submit real-time event booking requests, and contact the organization.
+- **Objective**: Design and develop a comprehensive Event Management Booking Website allowing clients to explore event services, view upcoming events, inspect gallery showcases, register, log in, submit bookings, and contact the company.
 - **Aesthetic**: Authentic Meetco Conference & Event Template styling (`#ffe04b`, `#260f8f`, `#00b8ff`, `#131053`).
+- **Online Build**: [https://melvindavis2003.github.io/Group_project_luminar/](https://melvindavis2003.github.io/Group_project_luminar/)
 - **Live / Local URL**: `http://localhost:8080`
 - **Submission Date**: 05/09/2026
 
@@ -100,3 +103,9 @@ A modern, responsive, animation-rich **Event Management Booking Website** built 
    - Contact: `http://localhost:8080/contact.html`
    - Login: `http://localhost:8080/login.html`
    - Register: `http://localhost:8080/register.html`
+
+---
+
+## 🌐 Online Build
+
+View the deployed website here: [https://melvindavis2003.github.io/Group_project_luminar/](https://melvindavis2003.github.io/Group_project_luminar/)
